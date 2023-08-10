@@ -10,16 +10,16 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="680.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.mainWindowController">
    <top>
-      <ImageView fitHeight="42.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+      <ImageView fitHeight="42.0" fitWidth="600.0" pickOnBounds="true" BorderPane.alignment="CENTER">
          <image>
             <Image url="@BooFlow.png" />
          </image>
       </ImageView>
    </top>
    <center>
-      <ScrollPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <ScrollPane prefHeight="200.0" prefWidth="200.0" styleClass="backgroundScrollpane" stylesheets="@gridBg.css" BorderPane.alignment="CENTER">
          <content>
-            <GridPane fx:id="centerBox">
+            <GridPane fx:id="centerBox" prefHeight="1080.0" prefWidth="1500.0">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
