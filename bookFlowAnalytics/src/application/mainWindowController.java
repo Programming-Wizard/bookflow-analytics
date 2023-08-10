@@ -21,17 +21,16 @@ public class mainWindowController implements Initializable {
 	private GridPane centerBox;
 
 	private GoogleBooksApiClient apiClient;
+	private boolean testingmode = true;
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		apiClient = new GoogleBooksApiClient();
 
 		String query = "fiction";
-		int startIndex = 0;
-		int maxResultsPerPage = 20;
 
-		Scene scene = centerBox.getScene();
-
+		if(testingmode == false)
+		{
 		List<Book> bookdata = apiClient.fetchBooksData(query);
 
 		int row = 0;
@@ -69,27 +68,14 @@ public class mainWindowController implements Initializable {
 			}
 
 		}
+		}
 
 	}
 
 	public void handleResize() {
-		Stage stage = (Stage) centerBox.getScene().getWindow();
-		Scene scene = centerBox.getScene();
-		double windowWidth = scene.getWidth();
-		double windowHeight = scene.getHeight();
-
-		double coverWidth = windowWidth / 4;
-		double coverHeight = windowWidth * (3.0 / 2.0);
-
-		for (Node node : centerBox.getChildren()) {
-			if (node instanceof StackPane) {
-				StackPane stackPane = (StackPane) node;
-				ImageView coverPage = (ImageView) stackPane.getChildren().get(0); // Assuming ImageView is the first
-																					// child
-
-				coverPage.setFitWidth(coverWidth);
-				coverPage.setFitHeight(coverHeight);
+			centerBox.setPrefWidth(658);
+			centerBox.setPrefHeight(758);
 			}
-		}
-	}
+		
+	
 }
