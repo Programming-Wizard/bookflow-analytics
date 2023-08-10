@@ -6,11 +6,14 @@ import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 
 public class mainWindowController implements Initializable {
 
@@ -26,6 +29,8 @@ public class mainWindowController implements Initializable {
 		String query = "fiction";
 		int startIndex = 0;
 		int maxResultsPerPage = 20;
+
+		Scene scene = centerBox.getScene();
 
 		List<Book> bookdata = apiClient.fetchBooksData(query);
 
@@ -57,9 +62,8 @@ public class mainWindowController implements Initializable {
 			if (col > 3) { // Display 3 books per row
 				col = 0;
 				row++;
-				
-				if(row > 4)
-				{
+
+				if (row > 4) {
 					break;
 				}
 			}
@@ -68,4 +72,24 @@ public class mainWindowController implements Initializable {
 
 	}
 
+	public void handleResize() {
+		Stage stage = (Stage) centerBox.getScene().getWindow();
+		Scene scene = centerBox.getScene();
+		double windowWidth = scene.getWidth();
+		double windowHeight = scene.getHeight();
+
+		double coverWidth = windowWidth / 4;
+		double coverHeight = windowWidth * (3.0 / 2.0);
+
+		for (Node node : centerBox.getChildren()) {
+			if (node instanceof StackPane) {
+				StackPane stackPane = (StackPane) node;
+				ImageView coverPage = (ImageView) stackPane.getChildren().get(0); // Assuming ImageView is the first
+																					// child
+
+				coverPage.setFitWidth(coverWidth);
+				coverPage.setFitHeight(coverHeight);
+			}
+		}
+	}
 }
