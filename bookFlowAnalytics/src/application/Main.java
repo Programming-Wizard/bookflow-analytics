@@ -32,6 +32,9 @@ public class Main extends Application {
 					MainWindow.handleResize();
 				}
 			});
+			scene.setOnScroll(event ->{
+				MainWindow.getScrollbarPosition();
+			});
 			primaryStage.show();
 			
 		} catch(Exception e) {

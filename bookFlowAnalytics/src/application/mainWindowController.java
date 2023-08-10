@@ -6,29 +6,32 @@ import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
 
 public class mainWindowController implements Initializable {
 
 	@FXML
 	private GridPane centerBox;
+	@FXML
+	private ScrollPane scrollPane;
 
 	private GoogleBooksApiClient apiClient;
-	private boolean testingmode = true;
+	private boolean testingmode = false;
+	
+    private int startIndex = 0;
+    private int maxResultsPerPage = 20;
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		apiClient = new GoogleBooksApiClient();
 
 		String query = "fiction";
-
+		
 		if(testingmode == false)
 		{
 		List<Book> bookdata = apiClient.fetchBooksData(query);
@@ -69,13 +72,71 @@ public class mainWindowController implements Initializable {
 
 		}
 		}
-
+		
 	}
 
 	public void handleResize() {
 			centerBox.setPrefWidth(658);
 			centerBox.setPrefHeight(758);
+			centerBox.setHgap(10);
 			}
+	public void getScrollbarPosition() {
+		double value = scrollPane.getVvalue();
+
+				if(value == 1.0)
+				{
+					loadMoreData();
+					centerBox.addRow(5);
+					int height = 0;
+					height += 30;
+					centerBox.setPrefHeight(height);
+					System.out.println(centerBox.getPrefHeight());
+					
+					System.out.println(centerBox.getRowCount());
+					System.out.println(centerBox.getColumnCount());
+				}
+	}
+	 private void loadMoreData() {
+//	         Fetch more data from the API
+		 String query = "Non-fiction";
+	        List<Book> additionalData = apiClient.fetchBooksData(query);
+	        
+	        if (!additionalData.isEmpty()) {
+	            startIndex += maxResultsPerPage;
+
+	            // Add additional rows to the GridPane
+	            int row = centerBox.getRowCount();
+	            int col = 0;
+	            
+	            for (Book book : additionalData) {
+	            	StackPane stackPane = new StackPane();
+	    			ImageView coverPage = new ImageView(new Image(book.getCoverUrl()));
+	    			coverPage.setFitHeight(150);
+	    			coverPage.setPreserveRatio(true);
+
+	    			coverPage.setOnMouseClicked(event -> {
+	    				System.out.println("clicked on book : " + book.getTitle());
+	    			});
+
+	    			Label titleLabel = new Label(book.getTitle());
+	    			titleLabel.setWrapText(true);
+	    			titleLabel.setMaxWidth(150); // Set a maximum width for the label
+
+	    			stackPane.getChildren().addAll(coverPage);
+
+	                GridPane.setRowIndex(stackPane, row);
+	                GridPane.setColumnIndex(stackPane, col);
+	                centerBox.getChildren().add(stackPane);
+
+	                col++;
+	                if (col > 3) { // Display 3 books per row
+	                    col = 0;
+	                    row++;
+	                }
+	            }
+	        }
+	    }
+
 		
 	
 }

@@ -9,15 +9,8 @@
 <?import javafx.scene.layout.RowConstraints?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="680.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.mainWindowController">
-   <top>
-      <ImageView fitHeight="42.0" fitWidth="600.0" pickOnBounds="true" BorderPane.alignment="CENTER">
-         <image>
-            <Image url="@BooFlow.png" />
-         </image>
-      </ImageView>
-   </top>
    <center>
-      <ScrollPane prefHeight="200.0" prefWidth="200.0" styleClass="backgroundScrollpane" stylesheets="@gridBg.css" BorderPane.alignment="CENTER">
+      <ScrollPane fx:id="scrollPane" prefHeight="200.0" prefWidth="200.0" styleClass="backgroundScrollpane" stylesheets="@gridBg.css" BorderPane.alignment="CENTER">
          <content>
             <GridPane fx:id="centerBox" prefHeight="1080.0" prefWidth="1500.0">
               <columnConstraints>
@@ -37,4 +30,11 @@
          </content>
       </ScrollPane>
    </center>
+   <top>
+      <ImageView fitHeight="38.0" fitWidth="1600.0" pickOnBounds="true" BorderPane.alignment="CENTER">
+         <image>
+            <Image url="@header.png" />
+         </image>
+      </ImageView>
+   </top>
 </BorderPane>
