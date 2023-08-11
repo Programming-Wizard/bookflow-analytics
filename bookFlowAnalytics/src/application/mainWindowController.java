@@ -1,13 +1,9 @@
 package application;
 
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -28,7 +24,7 @@ public class mainWindowController implements Initializable {
 	private boolean testingmode = false;
 
 	private int startIndex = 0;
-	private int maxResultsPerPage = 20;
+	private String maxResultsPerPage = "20";
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -38,7 +34,7 @@ public class mainWindowController implements Initializable {
 
 		if (testingmode == false) 
 		{
-			List<Book> bookdata = apiClient.fetchBooksData(query);
+			List<Book> bookdata = apiClient.fetchBooksData(query,maxResultsPerPage);
 
 			int row = 0;
 			int col = 0;
@@ -83,6 +79,6 @@ public class mainWindowController implements Initializable {
 	public void handleResize() 
 	{
 		centerBox.setPrefWidth(658);
-		centerBox.setPrefHeight(780);
+		centerBox.setPrefHeight(800);
 	}
 }
