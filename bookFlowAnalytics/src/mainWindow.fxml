@@ -12,7 +12,7 @@
    <center>
       <ScrollPane fx:id="scrollPane" prefHeight="200.0" prefWidth="200.0" styleClass="backgroundScrollpane" stylesheets="@gridBg.css" BorderPane.alignment="CENTER">
          <content>
-            <GridPane fx:id="centerBox" prefHeight="1080.0" prefWidth="1500.0" stylesheets="@style1.css">
+            <GridPane fx:id="centerBox" disable="true" prefHeight="1080.0" prefWidth="1500.0" stylesheets="@style1.css">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
