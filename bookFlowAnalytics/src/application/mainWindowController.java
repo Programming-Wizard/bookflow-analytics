@@ -19,9 +19,11 @@ public class mainWindowController implements Initializable {
 	private GridPane centerBox;
 	@FXML
 	private ScrollPane scrollPane;
+	@FXML
+	public ImageView graphSceneButton;
 
 	private GoogleBooksApiClient apiClient;
-	private boolean testingmode = false;
+	private boolean testingmode = true;
 
 	private int startIndex = 0;
 	private String maxResultsPerPage = "20";
@@ -80,5 +82,6 @@ public class mainWindowController implements Initializable {
 	{
 		centerBox.setPrefWidth(658);
 		centerBox.setPrefHeight(800);
+		graphSceneButton.setStyle("-fx-translate-x: -430;");
 	}
 }
