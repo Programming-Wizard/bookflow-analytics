@@ -3,15 +3,14 @@ package application;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
-import javafx.util.Duration;
 
 public class bookFlowAnalyticsController implements Initializable {
 
@@ -19,6 +18,8 @@ public class bookFlowAnalyticsController implements Initializable {
 	private VBox rootVBox;
 	@FXML
 	private BarChart<String, Number> readsGraph;
+	@FXML
+	public ImageView backToMainWindow;
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -52,5 +53,6 @@ public class bookFlowAnalyticsController implements Initializable {
 
 			readsGraph.getData().add(series);
 	}
+	
 	
 }
