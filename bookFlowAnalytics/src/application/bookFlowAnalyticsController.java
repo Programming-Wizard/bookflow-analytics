@@ -25,9 +25,13 @@ public class bookFlowAnalyticsController implements Initializable {
 	private GoogleBooksApiClient apiClient;
 
 	private String maxResultsPerPage = "20";
+	
+	public static String query = "harry potter";
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		
+		mainWindowController mainWindow = new mainWindowController();
 
 		apiClient = new GoogleBooksApiClient();
 
@@ -41,7 +45,7 @@ public class bookFlowAnalyticsController implements Initializable {
 
 		XYChart.Series<String, Number> series = new XYChart.Series<>();
 
-		String query = "fiction";
+		
 
 		List<Book> books = apiClient.fetchBooksData(query,maxResultsPerPage);
 
