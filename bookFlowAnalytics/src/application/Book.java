@@ -17,20 +17,38 @@ public class Book {
 		return rating;
 	}
 
+	public String getPubDate() {
+		return publicationDate;
+	}
+	
+	public int getRatingsCount() {
+		return ratingsCount;
+	}
+	
+	public String getDescription() {
+		return description;
+	}
+	
 	private String title;
 	private String author;
 	private String coverUrl;
+	private String publicationDate;
+	private int ratingsCount;
+	private String description;
 
 
 
 	private double rating;
 	
-	public Book(String title, String author, String coverUrl, double rating)
+	public Book(String title, String author, String coverUrl, double rating, String publicationDate, int ratingsCount, String description)
 	{
 		this.title = title;
 		this.author = author;
 		this.coverUrl = coverUrl;
 		this.rating = rating;
+		this.ratingsCount = ratingsCount;
+		this.publicationDate = publicationDate;
+		this.description = description;
 
 	}
 	
