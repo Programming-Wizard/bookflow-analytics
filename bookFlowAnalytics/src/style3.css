@@ -1,0 +1,9 @@
+/* Set background color to white */
+.searchButton {
+    -fx-background-color: grey;
+}
+
+/* Set border radius */
+.searchButton {
+    -fx-background-radius: 20;
+}
