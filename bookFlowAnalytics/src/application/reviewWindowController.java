@@ -10,14 +10,15 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
-public class reviewWindowController implements Initializable {
+public class reviewWindowController{
 	@FXML
 	private ImageView Coverpage;
 	@FXML
-	public static Label titleOfTheBook;
+	public Label titleOfTheBook;
 	@FXML
 	private Label publishdate;
 	@FXML
@@ -28,24 +29,22 @@ public class reviewWindowController implements Initializable {
 	private Label Authorsname;
 	@FXML
 	private Label description;
-	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
-		mainWindowController getFromMainWindow = new mainWindowController();
-		titleOfTheBook.setText(getFromMainWindow.getTitle());
-		Authorsname.setText(getFromMainWindow.getAuthor());
-		publishdate.setText(getFromMainWindow.getPublicationDate());
-		ratingCount.setText(String.valueOf(getFromMainWindow.getRatingsCount()));
-		Rating.setText(String.valueOf(getFromMainWindow.getRating()));
-		description.setText(getFromMainWindow.getDescription());
-		// Set the clicked cover image
-//		Coverpage.setImage(getFromMainWindow.getClickedBook().getImage());
-	}
-	public void showup()
-	{
 
-		
+	public void setBookData(String title, String author, String publicationDate, int ratingsCount, double rating,String description, Image image) {
+		// TODO Auto-generated method stub
+      titleOfTheBook.setText(title);
+      Authorsname.setText(author);
+      publishdate.setText(publicationDate);
+      ratingCount.setText(String.valueOf(ratingsCount));
+      Rating.setText(String.valueOf(rating));
+      this.description.setText(description);
+      Coverpage.setImage(image);
 	}
 	
 }
+
+
+
+
 
 
