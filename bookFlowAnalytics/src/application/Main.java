@@ -1,7 +1,6 @@
 package application;
 
 import javafx.application.Application;
-import javafx.event.Event;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -28,12 +27,6 @@ public class Main extends Application {
 
 			primaryStage.setScene(scene);
 
-			scene.setOnKeyPressed(Event ->{
-				if(Event.getCode() == KeyCode.ESCAPE)
-				{
-					MainWindow.handleResize();
-				}
-			});
 			MainWindow.graphSceneButton.setOnMouseClicked(Event ->{
 				try {
 					 	FXMLLoader graphSceneLoad = new FXMLLoader(getClass().getResource("/bookflowAnalytics.fxml"));
@@ -41,8 +34,18 @@ public class Main extends Application {
 	                    Scene graphScene = new Scene(newRoot);
 	                    primaryStage.setScene(graphScene);
 	                    primaryStage.setResizable(true);
-	                    primaryStage.show();
+	                    bookFlowAnalyticsController GraphSceneController = graphSceneLoad.getController();
+	                    GraphSceneController.backToMainWindow.setOnMouseClicked(Event2 ->{
+	                    	try {
+	                    		primaryStage.setScene(scene);
+	                    		primaryStage.show();
+	                    	}catch (Exception e) {
+								e.printStackTrace();
+							}
+	                    });
 
+	                    primaryStage.show();
+	                    
 				} catch (Exception e) 
 				{
 					e.printStackTrace();
