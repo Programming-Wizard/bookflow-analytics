@@ -2,6 +2,7 @@
 
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ProgressIndicator?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
@@ -48,11 +49,11 @@
                   <Image url="@header.png" />
                </image>
             </ImageView>
-            <TextField fx:id="searchField" layoutX="736.0" layoutY="37.0" promptText="Search" stylesheets="@style4.css">
+            <TextField fx:id="searchField" layoutX="736.0" layoutY="41.0" promptText="Search" stylesheets="@style4.css">
                <cursor>
                   <Cursor fx:constant="TEXT" />
                </cursor></TextField>
-            <Button fx:id="searchButton" layoutX="905.0" layoutY="37.0" mnemonicParsing="false" styleClass="searchButton" stylesheets="@style3.css" text="Search">
+            <Button fx:id="searchButton" layoutX="905.0" layoutY="41.0" mnemonicParsing="false" onAction="#performSearch" styleClass="searchButton" stylesheets="@style3.css" text="Search">
                <textFill>
                   <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
                      <stops>
@@ -81,6 +82,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </ImageView>
+            <ProgressIndicator fx:id="loadingSpinner" layoutX="699.0" layoutY="41.0" prefHeight="31.0" prefWidth="22.0" />
          </children>
       </AnchorPane>
    </top>
