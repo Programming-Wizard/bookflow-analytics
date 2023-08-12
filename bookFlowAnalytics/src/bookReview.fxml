@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="RIGHT_TO_LEFT" prefHeight="568.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.reviewWindowController">
+   <children>
+      <ImageView fitHeight="568.0" fitWidth="800.0" pickOnBounds="true">
+         <image>
+            <Image url="@review-window-background.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="Coverpage" fitHeight="281.0" fitWidth="198.0" layoutX="558.0" layoutY="131.0" pickOnBounds="true" preserveRatio="true" />
+      <Label fx:id="titleOfTheBook" alignment="CENTER" contentDisplay="CENTER" layoutX="8.0" layoutY="64.0" prefHeight="52.0" prefWidth="486.0" text="Title" wrapText="true">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label fx:id="publishdate" alignment="TOP_RIGHT" contentDisplay="CENTER" layoutX="536.0" layoutY="437.0" prefHeight="18.0" prefWidth="223.0" text="Publishing date" />
+      <Label fx:id="Rating" alignment="TOP_RIGHT" contentDisplay="CENTER" layoutX="537.0" layoutY="462.0" prefHeight="18.0" prefWidth="223.0" text="Rating" />
+      <Label fx:id="ratingCount" alignment="TOP_RIGHT" contentDisplay="CENTER" layoutX="539.0" layoutY="484.0" prefHeight="18.0" prefWidth="223.0" text="Ratings count:" />
+      <Label fx:id="Authorsname" alignment="TOP_RIGHT" contentDisplay="CENTER" layoutX="540.0" layoutY="506.0" prefHeight="18.0" prefWidth="223.0" text="Authors name :" />
+      <Label fx:id="description" alignment="TOP_RIGHT" contentDisplay="TOP" layoutX="81.0" layoutY="163.0" prefHeight="281.0" prefWidth="357.0" text="Description" />
+   </children>
+</AnchorPane>
