@@ -23,6 +23,7 @@ public class mainWindowController implements Initializable {
 	public ImageView graphSceneButton;
 
 	private GoogleBooksApiClient apiClient;
+//	private boolean testingmode = false;
 	private boolean testingmode = true;
 
 	private int startIndex = 0;
