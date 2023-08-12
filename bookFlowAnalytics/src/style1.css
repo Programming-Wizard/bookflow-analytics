@@ -1,3 +1,4 @@
 .cover-image:hover{
 	-fx-translate-y: -10;
+	-fx-cursor :hand ;
 }
