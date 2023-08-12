@@ -5,13 +5,16 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
+import javafx.scene.control.Button;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -25,13 +28,19 @@ public class mainWindowController implements Initializable {
 	private ScrollPane scrollPane;
 	@FXML
 	public ImageView graphSceneButton;
+	@FXML
+	public TextField searchField;
+	@FXML
+	private Button searchButton;
+	@FXML
+	private ProgressIndicator loadingSpinner;
 
 	public ImageView coverPage;
 
 	private GoogleBooksApiClient apiClient;
 	private boolean testingmode = false;
 	//	private boolean testingmode = true;
-	
+
 	private ImageView clickedBook;
 	private String title;
 	private String author;
@@ -43,9 +52,9 @@ public class mainWindowController implements Initializable {
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		loadingSpinner.setVisible(false);
 		apiClient = new GoogleBooksApiClient();
-
-		String query = "fiction";
+		String query = "harry potter";
 
 		if (testingmode == false) 
 		{
@@ -63,10 +72,6 @@ public class mainWindowController implements Initializable {
 				coverPage.setOnMouseClicked(Event -> check(book,coverPage));
 
 				coverPage.getStyleClass().add("cover-image");
-
-				Label titleLabel = new Label(book.getTitle());
-				titleLabel.setWrapText(true);
-				titleLabel.setMaxWidth(150); // Set a maximum width for the label
 
 
 				GridPane.setRowIndex(coverPage, row);
@@ -90,7 +95,7 @@ public class mainWindowController implements Initializable {
 		}
 
 	}
-	private void check(Book book, ImageView clickedCoverPage)
+	public void check(Book book, ImageView clickedCoverPage)
 	{
 		this.title = book.getTitle();
 		this.author = book.getAuthor();
@@ -99,16 +104,94 @@ public class mainWindowController implements Initializable {
 		this.rating = book.getRating();
 		this.description = book.getDescription();
 		this.clickedBook = clickedCoverPage;
-		
-//		System.out.println(Booktitle);
-//		System.out.println(author);
-//		System.out.println(publicationDate);
-//		System.out.println(ratingsCount);
-//		System.out.println(rating);
-//		System.out.println(description);
-//		System.out.println(clickedBook);
+
+		Image coverImage = new Image(book.getCoverUrl());
+
+		FXMLLoader reviewWindowLoad = new FXMLLoader(getClass().getResource("/bookReview.fxml"));
+		try {
+			Stage stage = new Stage();
+			Parent newroot = reviewWindowLoad.load();
+			Scene newScene = new Scene(newroot);
+
+			// Access the controller of the loaded FXML
+			reviewWindowController reviewController = reviewWindowLoad.getController();
+			reviewController.setBookData(title, author, publicationDate, ratingsCount, rating, description,coverImage);
+
+			stage.setScene(newScene);
+			stage.setResizable(false);
+			stage.setTitle(title);
+			stage.show();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
 	}
-	
+
+	public void performSearch()
+	{
+		loadingSpinner.setVisible(true);
+		searchButton.setDisable(true);
+		String query = searchField.getText();
+
+		Thread backgroundThread = new Thread(() ->{
+			try {
+				List<Book> bookdata = apiClient.fetchBooksData(query, maxResultsPerPage);
+
+				Platform.runLater(() ->{
+					centerBox.getChildren().clear();
+					int row = 0;
+					int col = 0;
+
+					for(Book book : bookdata)
+					{
+						coverPage = new ImageView(new Image(book.getCoverUrl()));
+						coverPage.setFitHeight(150);
+						coverPage.setPreserveRatio(true);
+
+						coverPage.setOnMouseClicked(Event -> check(book,coverPage));
+
+						coverPage.getStyleClass().add("cover-image");
+
+
+						GridPane.setRowIndex(coverPage, row);
+						GridPane.setColumnIndex(coverPage, col);
+
+						centerBox.getChildren().add(coverPage);
+
+						col++;
+						if (col > 3) 
+						{ // Display 3 books per row
+							col = 0;
+							row++;
+
+							if (row > 4) 
+							{
+								break;
+							}
+						}
+
+					}
+
+
+					loadingSpinner.setVisible(false);
+					searchButton.setDisable(false);
+				});
+
+			}catch (Exception e) {
+				Platform.runLater(() -> {
+					System.err.println("An error occurred while fetching or displaying book data: " + e.getMessage());
+					e.printStackTrace();
+					loadingSpinner.setVisible(false);
+					searchButton.setDisable(false);
+				});
+			}
+		});
+		
+		backgroundThread.start();
+
+	}
+
 	public ImageView getClickedBook() {
 		return clickedBook;
 	}
