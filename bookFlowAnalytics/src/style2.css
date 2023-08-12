@@ -1,0 +1,24 @@
+/* Chart Background and Borders */
+.chart {
+    -fx-background-color: #020024;
+    -fx-padding: 40px;
+   
+}
+.chart-title{
+	-fx-text-fill:white;
+	-fx-font-size: 2.5em;
+}
+
+/* Series Styling */
+.series0 {
+    -fx-bar-fill: rgb(0,224,250,0.3); /* Change bar color for series 0 */
+}
+
+
+/* Grid Lines Styling */
+.chart-horizontal-grid-lines {
+    -fx-stroke: #ddd;
+}
+.axis-label {
+	-fx-text-fill:white;
+}
