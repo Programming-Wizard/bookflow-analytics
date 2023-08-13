@@ -6,7 +6,6 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.scene.input.KeyCode;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
@@ -24,15 +23,9 @@ public class Main extends Application {
 			Image icon = new Image("/logo.png"); 
 			primaryStage.getIcons().add(icon);
 			primaryStage.setTitle("BookFlow");
-//			primaryStage.setFullScreen(true);
 			primaryStage.setResizable(false);
 			
 			primaryStage.setScene(scene);
-			
-			MainWindow.coverPage.setOnMouseClicked(Event ->{
-					
-			});
-
 
 			MainWindow.graphSceneButton.setOnMouseClicked(Event ->{
 				try {
