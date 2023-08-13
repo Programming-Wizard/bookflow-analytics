@@ -3,6 +3,7 @@ package application;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
+import java.util.Random;
 import java.util.ResourceBundle;
 
 import javafx.application.Platform;
@@ -19,6 +20,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class mainWindowController implements Initializable {
 
@@ -49,12 +51,23 @@ public class mainWindowController implements Initializable {
 	private double rating;
 	private String description;
 	private String maxResultsPerPage = "20";
-
+	String genres[] = {
+			"Action Adventure", "Mystery", "Thriller", "Horror", "Science-Fiction", "Fantasy",
+			"Self-Help", "Travel", "Cooking", "Science","Technology", "Business", "History",
+			"Art", "Music", "Poetry", "Graphic Novels", "Comics", "Children", "Classic", "Fairy-Tales",
+			"Folklore", "Mythology","Western", "Crime", "Medical", "Political",
+			"Spy", "War", "Western","Aliens", "Cyberpunk", "Post-Apocalyptic", "Space-Opera", "Steampunk",
+			"Urban-Fantasy" 
+	};
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		loadingSpinner.setVisible(false);
 		apiClient = new GoogleBooksApiClient();
-		String query = "harry potter";
+		Random random = new Random();
+		int randomIndex = random.nextInt(genres.length - 1);
+		String selectedGenre = genres[randomIndex];
+		System.out.println(selectedGenre);
+		String query = selectedGenre;
 
 		if (testingmode == false) 
 		{
@@ -112,15 +125,21 @@ public class mainWindowController implements Initializable {
 			Stage stage = new Stage();
 			Parent newroot = reviewWindowLoad.load();
 			Scene newScene = new Scene(newroot);
-
 			// Access the controller of the loaded FXML
 			reviewWindowController reviewController = reviewWindowLoad.getController();
 			reviewController.setBookData(title, author, publicationDate, ratingsCount, rating, description,coverImage);
 
 			stage.setScene(newScene);
+			stage.initStyle(StageStyle.TRANSPARENT);
 			stage.setResizable(false);
 			stage.setTitle(title);
+			stage.setY(150);
+			stage.setX(350);
 			stage.show();
+
+			reviewController.closeButton.setOnMouseClicked(Event ->{
+				stage.close();
+			});
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -138,44 +157,52 @@ public class mainWindowController implements Initializable {
 			try {
 				List<Book> bookdata = apiClient.fetchBooksData(query, maxResultsPerPage);
 
+
 				Platform.runLater(() ->{
 					centerBox.getChildren().clear();
 					int row = 0;
 					int col = 0;
+					int totalbooks = 0;
 
 					for(Book book : bookdata)
 					{
-						coverPage = new ImageView(new Image(book.getCoverUrl()));
-						coverPage.setFitHeight(150);
-						coverPage.setPreserveRatio(true);
+						if(book != null)
+						{
+							totalbooks++;
+							System.out.println(totalbooks);
+							coverPage = new ImageView(new Image(book.getCoverUrl()));
+							coverPage.setFitHeight(150);
+							coverPage.setPreserveRatio(true);
 
-						coverPage.setOnMouseClicked(Event -> check(book,coverPage));
+							coverPage.setOnMouseClicked(Event -> check(book,coverPage));
 
-						coverPage.getStyleClass().add("cover-image");
+							coverPage.getStyleClass().add("cover-image");
 
 
-						GridPane.setRowIndex(coverPage, row);
-						GridPane.setColumnIndex(coverPage, col);
+							GridPane.setRowIndex(coverPage, row);
+							GridPane.setColumnIndex(coverPage, col);
 
-						centerBox.getChildren().add(coverPage);
+							centerBox.getChildren().add(coverPage);
 
-						col++;
-						if (col > 3) 
-						{ // Display 3 books per row
-							col = 0;
-							row++;
+							col++;
+							if (col > 3) 
+							{ // Display 3 books per row
+								col = 0;
+								row++;
 
-							if (row > 4) 
-							{
-								break;
+								if (row > 4) 
+								{
+									break;
+								}
 							}
 						}
-
+						if(totalbooks <= 20) {
+							loadingSpinner.setVisible(false);
+							searchButton.setDisable(false);
+						}
 					}
 
 
-					loadingSpinner.setVisible(false);
-					searchButton.setDisable(false);
 				});
 
 			}catch (Exception e) {
@@ -187,7 +214,8 @@ public class mainWindowController implements Initializable {
 				});
 			}
 		});
-		
+
+
 		backgroundThread.start();
 
 	}
