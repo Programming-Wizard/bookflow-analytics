@@ -36,14 +36,12 @@ public class Main extends Application {
 
 			MainWindow.graphSceneButton.setOnMouseClicked(Event ->{
 				try {
-						String userQuery = MainWindow.searchField.getText();
 					 	FXMLLoader graphSceneLoad = new FXMLLoader(getClass().getResource("/bookflowAnalytics.fxml"));
 	                    Parent newRoot = graphSceneLoad.load();
 	                    Scene graphScene = new Scene(newRoot, screenBounds.getWidth(),(screenBounds.getHeight() - 27));
 	                    primaryStage.setScene(graphScene);
 	                    primaryStage.setResizable(false);
 	                    bookFlowAnalyticsController GraphSceneController = graphSceneLoad.getController();
-	                    	bookFlowAnalyticsController.query = userQuery;
 
 	                    GraphSceneController.backToMainWindow.setOnMouseClicked(Event2 ->{
 	                    	try {
