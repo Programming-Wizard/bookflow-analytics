@@ -38,7 +38,6 @@ public class mainWindowController implements Initializable {
 	private ProgressIndicator loadingSpinner;
 
 	public ImageView coverPage;
-
 	private GoogleBooksApiClient apiClient;
 	private boolean testingmode = false;
 	//	private boolean testingmode = true;
@@ -52,11 +51,11 @@ public class mainWindowController implements Initializable {
 	private String description;
 	private String maxResultsPerPage = "20";
 	String genres[] = {
-			"Action Adventure", "Mystery", "Thriller", "Horror", "Science-Fiction", "Fantasy",
-			"Self-Help", "Travel", "Cooking", "Science","Technology", "Business", "History",
-			"Art", "Music", "Poetry", "Graphic Novels", "Comics", "Children", "Classic", "Fairy-Tales",
-			"Folklore", "Mythology","Western", "Crime", "Medical", "Political",
-			"Spy", "War", "Western","Aliens", "Cyberpunk", "Post-Apocalyptic", "Space-Opera", "Steampunk",
+			"Action Adventure", "Mystery", "Thriller","Science-Fiction", "Fantasy",
+			"Self-Help", "Cooking", "Science","Technology", "History",
+			"Art", "Music", "Poetry", "Graphic Novels", "Comics", "Children", "Classic",
+			"Mythology","Western", "Crime", "Medical", "Political",
+			"Spy", "War", "Western","Aliens", "Cyberpunk", "Post-Apocalyptic", "Steampunk",
 			"Urban-Fantasy" 
 	};
 	@Override
@@ -146,78 +145,15 @@ public class mainWindowController implements Initializable {
 		}
 
 	}
-
 	public void performSearch()
 	{
-		loadingSpinner.setVisible(true);
-		searchButton.setDisable(true);
-		String query = searchField.getText();
-
-		Thread backgroundThread = new Thread(() ->{
-			try {
-				List<Book> bookdata = apiClient.fetchBooksData(query, maxResultsPerPage);
-
-
-				Platform.runLater(() ->{
-					centerBox.getChildren().clear();
-					int row = 0;
-					int col = 0;
-					int totalbooks = 0;
-
-					for(Book book : bookdata)
-					{
-						if(book != null)
-						{
-							totalbooks++;
-							System.out.println(totalbooks);
-							coverPage = new ImageView(new Image(book.getCoverUrl()));
-							coverPage.setFitHeight(150);
-							coverPage.setPreserveRatio(true);
-
-							coverPage.setOnMouseClicked(Event -> check(book,coverPage));
-
-							coverPage.getStyleClass().add("cover-image");
-
-
-							GridPane.setRowIndex(coverPage, row);
-							GridPane.setColumnIndex(coverPage, col);
-
-							centerBox.getChildren().add(coverPage);
-
-							col++;
-							if (col > 3) 
-							{ // Display 3 books per row
-								col = 0;
-								row++;
-
-								if (row > 4) 
-								{
-									break;
-								}
-							}
-						}
-						if(totalbooks <= 20) {
-							loadingSpinner.setVisible(false);
-							searchButton.setDisable(false);
-						}
-					}
-
-
-				});
-
-			}catch (Exception e) {
-				Platform.runLater(() -> {
-					System.err.println("An error occurred while fetching or displaying book data: " + e.getMessage());
-					e.printStackTrace();
-					loadingSpinner.setVisible(false);
-					searchButton.setDisable(false);
-				});
-			}
-		});
-
-
-		backgroundThread.start();
-
+		PerformSearchTask performSearchTask = new PerformSearchTask(apiClient,
+				maxResultsPerPage, centerBox, searchField, loadingSpinner, 
+				searchButton, coverPage,this);
+		
+			Thread th = new Thread(performSearchTask);
+			th.setDaemon(true);
+			th.start();
 	}
 
 	public ImageView getClickedBook() {
