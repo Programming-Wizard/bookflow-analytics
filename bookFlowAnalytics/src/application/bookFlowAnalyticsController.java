@@ -26,12 +26,12 @@ public class bookFlowAnalyticsController implements Initializable {
 	private GoogleBooksApiClient apiClient;
 
 	private String maxResultsPerPage = "20";
-	String genres[] = {"Action Adventure", "Mystery", "Thriller", "Horror", "Science-Fiction", "Fantasy",
-			"Self-Help", "Travel", "Cooking", "Science","Technology", "Business", "History",
-			"Art", "Music", "Poetry", "Graphic Novels", "Comics", "Children", "Classic", "Fairy-Tales",
-			"Folklore", "Mythology","Western", "Crime", "Medical", "Political",
-			"Spy", "War", "Western","Aliens", "Cyberpunk", "Post-Apocalyptic", "Space-Opera", "Steampunk",
-			"Urban-Fantasy"  };
+	String genres[] = {"Action Adventure", "Mystery", "Thriller","Science-Fiction", "Fantasy",
+			"Self-Help", "Cooking", "Science","Technology", "History",
+			"Art", "Music", "Poetry", "Graphic Novels", "Comics", "Children", "Classic",
+			"Mythology","Western", "Crime", "Medical", "Political",
+			"Spy", "War", "Western","Aliens", "Cyberpunk", "Post-Apocalyptic", "Steampunk",
+			"Urban-Fantasy" };
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
