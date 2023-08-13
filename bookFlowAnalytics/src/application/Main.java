@@ -14,46 +14,66 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/mainWindow.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/loadingScreen.fxml"));
 			Parent root = loader.load();
+			Scene loadingScene = new Scene(root);
 			Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
-			Scene scene = new Scene(root, screenBounds.getWidth(),(screenBounds.getHeight() - 27));
-			mainWindowController MainWindow = loader.getController();
-			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-			Image icon = new Image("/logo.png"); 
-			primaryStage.getIcons().add(icon);
-			primaryStage.setTitle("BookFlow");
-			primaryStage.setResizable(false);
-			
-			primaryStage.setScene(scene);
+			Stage loadingStage = new Stage();
+			loadingStage.setScene(loadingScene);
+			loadingStage.show();
+			System.out.println("showed the loading screen");
 
-			MainWindow.graphSceneButton.setOnMouseClicked(Event ->{
-				try {
-					 	FXMLLoader graphSceneLoad = new FXMLLoader(getClass().getResource("/bookflowAnalytics.fxml"));
-	                    Parent newRoot = graphSceneLoad.load();
-	                    Scene graphScene = new Scene(newRoot, screenBounds.getWidth(),(screenBounds.getHeight() - 27));
-	                    primaryStage.setScene(graphScene);
-	                    primaryStage.setResizable(false);
-	                    bookFlowAnalyticsController GraphSceneController = graphSceneLoad.getController();
+			loadMainWindowTask LoadMainWindowTask = new loadMainWindowTask();
+			System.out.println("loaded the task initiated as well");
+			System.out.println("checking if it succeded in it ");
+			LoadMainWindowTask.setOnSucceeded(event1 -> {
+				System.out.println("it succeded");
+				Parent mainRoot = LoadMainWindowTask.getValue();
+				Scene mainScene = new Scene(mainRoot);
+				primaryStage.setScene(mainScene);
+				System.out.println("stage is about to be showed");
+				primaryStage.setTitle("Bookflow");
+				primaryStage.show();
 
-	                    GraphSceneController.backToMainWindow.setOnMouseClicked(Event2 ->{
-	                    	try {
-	                    		primaryStage.setScene(scene);
-	                    		primaryStage.show();
-	                    	}catch (Exception e) {
+				mainWindowController MainWindow = LoadMainWindowTask.getController();
+				System.out.println("got the the controller");
+
+				loadingStage.close();
+				System.out.println("closed the loading screen");
+
+				
+				MainWindow.graphSceneButton.setOnMouseClicked(Event2 ->{
+					try {
+						FXMLLoader graphSceneLoad = new FXMLLoader(getClass().getResource("/bookflowAnalytics.fxml"));
+						Parent newRoot = graphSceneLoad.load();
+						Scene graphScene = new Scene(newRoot, screenBounds.getWidth(),(screenBounds.getHeight() - 27));
+						primaryStage.setScene(graphScene);
+						primaryStage.setResizable(false);
+						bookFlowAnalyticsController GraphSceneController = graphSceneLoad.getController();
+
+						GraphSceneController.backToMainWindow.setOnMouseClicked(Event3 ->{
+							try {
+								primaryStage.setScene(mainScene);
+								primaryStage.show();
+							}catch (Exception e) {
 								e.printStackTrace();
 							}
-	                    });
+						});
 
-	                    primaryStage.show();
-	                    
-				} catch (Exception e) 
-				{
-					e.printStackTrace();
-				}
+						primaryStage.show();
+
+					} catch (Exception e) 
+					{
+						e.printStackTrace();
+					}
+					System.out.println("thread is about to start");
+				});
 
 			});
-			primaryStage.show();
+			Thread th2 = new Thread(LoadMainWindowTask);
+			th2.setDaemon(true);
+			th2.start();
+			System.out.println("process ended");
 
 		} catch(Exception e) {
 			e.printStackTrace();
