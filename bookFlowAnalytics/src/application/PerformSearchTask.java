@@ -42,6 +42,12 @@ public class PerformSearchTask extends Task<Void> {
     	loadingSpinner.setVisible(true);
 		searchButton.setDisable(true);
 		String query = searchField.getText();
+		if(query == "" || query == null)
+		{
+			loadingSpinner.setVisible(false);
+			searchButton.setDisable(false);
+			return null;
+		}
 		
         List<Book> bookdata = apiClient.fetchBooksData(query, maxResultsPerPage);
         Platform.runLater(() ->{
@@ -51,6 +57,7 @@ public class PerformSearchTask extends Task<Void> {
         int row = 0;
         int col = 0;
 
+        
 
         for (Book book : bookdata) {
             if (book != null) {
@@ -85,8 +92,8 @@ public class PerformSearchTask extends Task<Void> {
 
 
         }
-    	}catch (Exception e) {
-			e.printStackTrace();
+    	}catch (java.lang.IllegalArgumentException e) {
+    		System.out.println("insufficient data available to be fetched");
 		}
     	
     	loadingSpinner.setVisible(false);
