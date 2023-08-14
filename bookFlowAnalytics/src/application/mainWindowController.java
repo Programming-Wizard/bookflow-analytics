@@ -16,11 +16,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.util.Duration;
 
 public class mainWindowController implements Initializable {
 
@@ -36,6 +38,8 @@ public class mainWindowController implements Initializable {
 	private Button searchButton;
 	@FXML
 	private ProgressIndicator loadingSpinner;
+	@FXML
+	private ImageView homeButton;
 
 	public ImageView coverPage;
 	private GoogleBooksApiClient apiClient;
@@ -50,23 +54,26 @@ public class mainWindowController implements Initializable {
 	private double rating;
 	private String description;
 	private String maxResultsPerPage = "20";
+	private String query;
 	String genres[] = {
-			"Action Adventure", "Mystery", "Thriller","Science-Fiction", "Fantasy",
+			"Mystery", "Thriller","Science-Fiction", "Fantasy",
 			"Self-Help", "Cooking", "Science","Technology", "History",
-			"Art", "Music", "Poetry", "Graphic Novels", "Comics", "Children", "Classic",
+			"Art", "Poetry", "Comics", "Children",
 			"Mythology","Western", "Crime", "Medical", "Political",
-			"Spy", "War", "Western","Aliens", "Cyberpunk", "Post-Apocalyptic", "Steampunk",
+			"Spy","Western", "Cyberpunk", "Post-Apocalyptic", "Steampunk",
 			"Urban-Fantasy" 
 	};
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		Tooltip tooltip = new Tooltip("home");
+		tooltip.setShowDelay(Duration.millis(100));
+		Tooltip.install(homeButton, tooltip);
 		loadingSpinner.setVisible(false);
 		apiClient = new GoogleBooksApiClient();
 		Random random = new Random();
 		int randomIndex = random.nextInt(genres.length - 1);
 		String selectedGenre = genres[randomIndex];
-		System.out.println(selectedGenre);
-		String query = selectedGenre;
+		query = selectedGenre;
 
 		if (testingmode == false) 
 		{
@@ -150,12 +157,24 @@ public class mainWindowController implements Initializable {
 		PerformSearchTask performSearchTask = new PerformSearchTask(apiClient,
 				maxResultsPerPage, centerBox, searchField, loadingSpinner, 
 				searchButton, coverPage,this);
-		
-			Thread th = new Thread(performSearchTask);
-			th.setDaemon(true);
-			th.start();
-	}
 
+		Thread th = new Thread(performSearchTask);
+		th.setDaemon(true);
+		th.start();
+		Main.isOnHomeScreen = false;
+	}
+	public ProgressIndicator getLoadingSpinner() {
+		return loadingSpinner;
+	}
+	public GridPane getCenterBox() {
+		return centerBox;
+	}
+	public String getQuery() {
+		return query;
+	}
+	public ImageView getHomeButton() {
+		return homeButton;
+	}
 	public ImageView getClickedBook() {
 		return clickedBook;
 	}
