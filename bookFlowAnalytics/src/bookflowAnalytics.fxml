@@ -24,10 +24,10 @@
       </ImageView>
       <BarChart fx:id="readsGraph" legendVisible="false" prefHeight="680.0" prefWidth="680.0" stylesheets="@style2.css" title="Most Reads" verticalGridLinesVisible="false">
         <xAxis>
-          <CategoryAxis side="BOTTOM" />
+          <CategoryAxis label="Book Name" side="BOTTOM" />
         </xAxis>
         <yAxis>
-          <NumberAxis side="LEFT" />
+          <NumberAxis label="Rating" side="LEFT" />
         </yAxis>
       </BarChart>
    </children>

@@ -42,7 +42,7 @@
       </ScrollPane>
    </center>
    <top>
-      <AnchorPane prefHeight="38.0" prefWidth="1600.0" style="-fx-background-color: darkblue;" styleClass="Header" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="64.0" prefWidth="1600.0" style="-fx-background-color: darkblue;" styleClass="Header" BorderPane.alignment="CENTER">
          <children>
             <ImageView fitHeight="38.0" fitWidth="1600.0" pickOnBounds="true">
                <image>
@@ -83,6 +83,14 @@
                </cursor>
             </ImageView>
             <ProgressIndicator fx:id="loadingSpinner" layoutX="699.0" layoutY="41.0" prefHeight="31.0" prefWidth="22.0" />
+            <ImageView fx:id="homeButton" fitHeight="85.0" fitWidth="99.0" layoutX="71.0" layoutY="-11.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@homeButton.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
          </children>
       </AnchorPane>
    </top>

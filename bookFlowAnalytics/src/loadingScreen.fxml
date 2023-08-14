@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.shape.Sphere?>
+<?import javafx.scene.media.MediaView?>
+<?import javafx.scene.text.Text?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="LoadingScreenPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.LoadScreenController">
    <children>
-      <Sphere layoutX="286.0" layoutY="180.0" radius="50" />
+      <MediaView fx:id="background" fitHeight="600.0" fitWidth="600.0" layoutY="-100.0" />
+      <Text fontSmoothingType="LCD" layoutX="38.0" layoutY="317.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fetching Data From The API:" wrappingWidth="159.7366943359375" />
    </children>
 </AnchorPane>
