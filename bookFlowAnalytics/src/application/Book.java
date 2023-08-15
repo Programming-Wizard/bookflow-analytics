@@ -1,6 +1,7 @@
 package application;
 
 public class Book {
+//	getters for the private variables
 	public String getTitle() {
 		return title;
 	}
@@ -35,13 +36,12 @@ public class Book {
 	private String publicationDate;
 	private int ratingsCount;
 	private String description;
-
-
-
 	private double rating;
 	
+//	creating a parameterized constructor
 	public Book(String title, String author, String coverUrl, double rating, String publicationDate, int ratingsCount, String description)
 	{
+//		passing the fetched values to the variables and then passing those values to the class wide defined variables (instance variables)
 		this.title = title;
 		this.author = author;
 		this.coverUrl = coverUrl;
@@ -49,7 +49,5 @@ public class Book {
 		this.ratingsCount = ratingsCount;
 		this.publicationDate = publicationDate;
 		this.description = description;
-
 	}
-	
 }
