@@ -5,6 +5,7 @@
 <?import javafx.scene.control.ProgressIndicator?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Glow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -42,18 +43,29 @@
       </ScrollPane>
    </center>
    <top>
-      <AnchorPane prefHeight="64.0" prefWidth="1600.0" style="-fx-background-color: darkblue;" styleClass="Header" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="118.0" prefWidth="1600.0" style="-fx-background-color: darkblue;" styleClass="Header" stylesheets="@style4.css" BorderPane.alignment="CENTER">
          <children>
-            <ImageView fitHeight="38.0" fitWidth="1600.0" pickOnBounds="true">
+            <ImageView fx:id="graphSceneButton" fitHeight="44.0" fitWidth="166.0" layoutX="1219.0" layoutY="71.0" pickOnBounds="true" styleClass="graphbutton">
+               <image>
+                  <Image url="@Must_readButton.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <effect>
+                  <Glow level="0.65" />
+               </effect>
+            </ImageView>
+            <ImageView fitHeight="56.0" fitWidth="1600.0" layoutX="-14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@header.png" />
                </image>
             </ImageView>
-            <TextField fx:id="searchField" layoutX="736.0" layoutY="41.0" promptText="Search" stylesheets="@style4.css">
+            <TextField fx:id="searchField" layoutX="711.0" layoutY="80.0" promptText="Search" styleClass="searchField">
                <cursor>
                   <Cursor fx:constant="TEXT" />
                </cursor></TextField>
-            <Button fx:id="searchButton" layoutX="905.0" layoutY="41.0" mnemonicParsing="false" onAction="#performSearch" styleClass="searchButton" stylesheets="@style3.css" text="Search">
+            <Button fx:id="searchButton" layoutX="871.0" layoutY="80.0" mnemonicParsing="false" onAction="#performSearch" styleClass="searchButton" stylesheets="@style3.css" text="Search">
                <textFill>
                   <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
                      <stops>
@@ -74,18 +86,18 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <ImageView fx:id="graphSceneButton" fitHeight="52.0" fitWidth="100.0" layoutX="1369.0" layoutY="6.0" pickOnBounds="true">
+            <ProgressIndicator fx:id="loadingSpinner" layoutX="677.0" layoutY="77.0" prefHeight="31.0" prefWidth="22.0" />
+            <ImageView fx:id="homeButton" fitHeight="90.0" fitWidth="99.0" layoutX="110.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true" styleClass="homeButtonM">
                <image>
-                  <Image url="@imageButton-modified.png" />
+                  <Image url="@homeButton.png" />
                </image>
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </ImageView>
-            <ProgressIndicator fx:id="loadingSpinner" layoutX="699.0" layoutY="41.0" prefHeight="31.0" prefWidth="22.0" />
-            <ImageView fx:id="homeButton" fitHeight="85.0" fitWidth="99.0" layoutX="71.0" layoutY="-11.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="loginButtonM" fitHeight="35.0" fitWidth="97.0" layoutX="1400.0" layoutY="75.0" onMouseClicked="#openLogin" pickOnBounds="true" styleClass="loginButtonM">
                <image>
-                  <Image url="@homeButton.png" />
+                  <Image url="@login_button.png" />
                </image>
                <cursor>
                   <Cursor fx:constant="HAND" />
