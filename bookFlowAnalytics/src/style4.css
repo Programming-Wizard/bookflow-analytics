@@ -1,3 +1,27 @@
-TextField{
-	-fx-border-radius:20;
+.searchField:focused {
+	-fx-scale-x: 1.1;
+    -fx-scale-y: 1.1;
+    -fx-background-color:white;
+    -fx-text-fill:black ; 
+    -fx-border-color:black;
+    -fx-border-width:2;
+    -fx-border-radius:5px;
 }
+.graphbutton:hover
+{
+	-fx-scale-x: 1.1;
+    -fx-scale-y: 1.1;
+}
+.loginButtonM:hover
+{
+	-fx-scale-x: 1.1;
+    -fx-scale-y: 1.1;
+}
+.homeButtonM:hover
+{
+	-fx-scale-x: 1.1;
+    -fx-scale-y: 1.1;
+}
+
+
+

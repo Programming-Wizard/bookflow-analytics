@@ -7,3 +7,7 @@
 .searchButton {
     -fx-background-radius: 20;
 }
+.searchButton:hover{
+	-fx-scale-x: 1.1;
+    -fx-scale-y: 1.1;
+}
