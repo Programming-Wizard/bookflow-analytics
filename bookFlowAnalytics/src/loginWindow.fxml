@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.media.MediaView?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.RadialGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="700.0" stylesheets="@style6.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.loginWindowController">
+   <children>
+      <MediaView fx:id="background" fitHeight="720.0" fitWidth="720.0" layoutY="-56.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-300.0" />
+      <Text fontSmoothingType="LCD" layoutX="97.0" layoutY="141.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username :">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Text>
+      <Text fontSmoothingType="LCD" layoutX="97.0" layoutY="201.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password :">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Text>
+      <Button fx:id="loginBtn" layoutX="268.0" layoutY="284.0" mnemonicParsing="false" prefHeight="73.0" prefWidth="165.0" style="-fx-background-color: black;" styleClass="loginButton" text="Login" AnchorPane.bottomAnchor="93.0" AnchorPane.leftAnchor="268.0" AnchorPane.rightAnchor="267.0" AnchorPane.topAnchor="284.0">
+         <font>
+            <Font size="24.0" />
+         </font>
+         <textFill>
+            <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="1.1102230246251565E-16" green="0.05000000074505806" blue="1.0" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="0.6370370388031006" green="0.9395061731338501" blue="1.0" />
+                     </color>
+                  </Stop>
+               </stops>
+            </RadialGradient>
+         </textFill>
+      </Button>
+      <TextField fx:id="username" layoutX="208.0" layoutY="122.0" prefHeight="26.0" prefWidth="275.0" promptText="Enter Your Username" AnchorPane.leftAnchor="208.0" AnchorPane.rightAnchor="116.80000000000001" />
+      <PasswordField fx:id="password" layoutX="208.0" layoutY="182.0" prefHeight="26.0" prefWidth="275.0" promptText="Enter Your Server Password" AnchorPane.leftAnchor="208.0" AnchorPane.rightAnchor="116.80000000000001" />
+      <Label fx:id="errorLabel" alignment="TOP_CENTER" contentDisplay="TOP" layoutY="51.0" prefHeight="49.0" prefWidth="600.0" text="Label" textAlignment="CENTER" textFill="white" wrapText="true">
+         <font>
+            <Font name="Gill Sans MT" size="14.0" />
+         </font>
+      </Label>
+      <ImageView fx:id="errorImage" fitHeight="27.0" fitWidth="29.0" layoutX="25.0" layoutY="55.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@error.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="closeButton" fitHeight="34.0" fitWidth="33.0" layoutX="22.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" styleClass="closeButton">
+         <image>
+            <Image url="@closeButton.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>
