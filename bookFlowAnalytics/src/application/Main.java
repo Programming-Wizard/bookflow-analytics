@@ -18,7 +18,7 @@ public class Main extends Application {
 
 	@Override
 	public void start(Stage primaryStage) {
-		
+		 
 		try 
 		{
 //			setting icon, getting screen size and loading, loading screen
