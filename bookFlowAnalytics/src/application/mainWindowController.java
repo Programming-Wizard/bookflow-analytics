@@ -40,13 +40,16 @@ public class mainWindowController implements Initializable {
 	private ProgressIndicator loadingSpinner;
 	@FXML
 	private ImageView homeButton;
+	@FXML
+	private ImageView loginButtonM;
+	
 
 	public ImageView coverPage;
 	private GoogleBooksApiClient apiClient;
 	
 //	keeping them, as this helpful while working on the background of the application
-	private boolean testingmode = false;
-	// private boolean testingmode = true;
+//	private boolean testingmode = false;
+	 private boolean testingmode = true;
 
 	private ImageView clickedBook;
 	private String title;
@@ -90,9 +93,12 @@ public class mainWindowController implements Initializable {
 			int col = 0;
 
 //			iterating through each element of the collection 
+			int totalbooksdata = 0;
 			for (Book book : bookdata) 
 			{
 //				creating  a new ImageView and getting the coverURL and putting in the ImageView
+				totalbooksdata++;
+				System.out.println("Total books loaded : " + totalbooksdata);
 				coverPage = new ImageView(new Image(book.getCoverUrl()));
 				coverPage.setFitHeight(150);
 				coverPage.setPreserveRatio(true);
@@ -132,6 +138,38 @@ public class mainWindowController implements Initializable {
 
 	}
 
+	public void openLogin()
+	{
+		FXMLLoader loginWindowload = new FXMLLoader(getClass().getResource("/loginWindow.fxml"));
+		try 
+		{
+			Stage loginStage = new Stage();
+			Parent loginRoot = loginWindowload.load();
+			Scene loginScene = new Scene(loginRoot);
+			
+			loginWindowController loginController = loginWindowload.getController();
+
+			loginStage.setScene(loginScene);
+			loginStage.initStyle(StageStyle.TRANSPARENT);
+			loginStage.setResizable(false);
+			loginStage.setTitle(title);
+			loginStage.setY(180);
+			loginStage.setX(450);
+			loginStage.show();
+
+//			added a custom close button image therefore adding a event listener to it to close this window
+			loginController.closeButton.setOnMouseClicked(Event -> 
+			{
+				loginStage.close();
+			});
+
+		} catch (IOException e) 
+		{
+			e.printStackTrace();
+		}
+
+	}
+	
 //	this is the method which gets executed when clicked on any of the cover pages
 	public void check(Book book, ImageView clickedCoverPage) 
 	{
