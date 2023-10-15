@@ -152,7 +152,7 @@ public class mainWindowController implements Initializable {
 			loginStage.setScene(loginScene);
 			loginStage.initStyle(StageStyle.TRANSPARENT);
 			loginStage.setResizable(false);
-			loginStage.setTitle(title);
+			loginStage.setTitle("User Login");
 			loginStage.setY(180);
 			loginStage.setX(450);
 			loginStage.show();

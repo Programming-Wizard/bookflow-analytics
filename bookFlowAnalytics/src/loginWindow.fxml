@@ -22,12 +22,12 @@
             <Font size="20.0" />
          </font>
       </Text>
-      <Text fontSmoothingType="LCD" layoutX="97.0" layoutY="201.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password :">
+      <Text fontSmoothingType="LCD" layoutX="97.0" layoutY="251.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password :">
          <font>
             <Font size="20.0" />
          </font>
       </Text>
-      <Button fx:id="loginBtn" layoutX="268.0" layoutY="284.0" mnemonicParsing="false" prefHeight="73.0" prefWidth="165.0" style="-fx-background-color: black;" styleClass="loginButton" text="Login" AnchorPane.bottomAnchor="93.0" AnchorPane.leftAnchor="268.0" AnchorPane.rightAnchor="267.0" AnchorPane.topAnchor="284.0">
+      <Button fx:id="loginBtn" layoutX="268.0" layoutY="304.0" mnemonicParsing="false" onAction="#checkLoginRequest" prefHeight="73.0" prefWidth="165.0" style="-fx-background-color: black;" styleClass="loginButton" text="Login" AnchorPane.bottomAnchor="73.0" AnchorPane.leftAnchor="268.0" AnchorPane.rightAnchor="267.0" AnchorPane.topAnchor="304.0">
          <font>
             <Font size="24.0" />
          </font>
@@ -49,7 +49,7 @@
          </textFill>
       </Button>
       <TextField fx:id="username" layoutX="208.0" layoutY="122.0" prefHeight="26.0" prefWidth="275.0" promptText="Enter Your Username" AnchorPane.leftAnchor="208.0" AnchorPane.rightAnchor="116.80000000000001" />
-      <PasswordField fx:id="password" layoutX="208.0" layoutY="182.0" prefHeight="26.0" prefWidth="275.0" promptText="Enter Your Server Password" AnchorPane.leftAnchor="208.0" AnchorPane.rightAnchor="116.80000000000001" />
+      <PasswordField fx:id="password" layoutX="208.0" layoutY="232.0" prefHeight="26.0" prefWidth="275.0" promptText="Enter Your Server Password" AnchorPane.leftAnchor="208.0" AnchorPane.rightAnchor="116.79999999999995" />
       <Label fx:id="errorLabel" alignment="TOP_CENTER" contentDisplay="TOP" layoutY="51.0" prefHeight="49.0" prefWidth="600.0" text="Label" textAlignment="CENTER" textFill="white" wrapText="true">
          <font>
             <Font name="Gill Sans MT" size="14.0" />
@@ -65,5 +65,11 @@
             <Image url="@closeButton.png" />
          </image>
       </ImageView>
+      <Text fontSmoothingType="LCD" layoutX="97.0" layoutY="195.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email :">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Text>
+      <TextField fx:id="userEmail" layoutX="208.0" layoutY="174.0" prefHeight="26.0" prefWidth="375.0" promptText="Enter Your Email Adress" />
    </children>
 </AnchorPane>
