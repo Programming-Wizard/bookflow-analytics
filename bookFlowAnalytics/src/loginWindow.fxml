@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
@@ -7,50 +8,27 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.media.MediaView?>
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.paint.RadialGradient?>
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="700.0" stylesheets="@style6.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.loginWindowController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="700.0" styleClass="scene" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.loginWindowController">
    <children>
-      <MediaView fx:id="background" fitHeight="720.0" fitWidth="720.0" layoutY="-56.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-300.0" />
-      <Text fontSmoothingType="LCD" layoutX="97.0" layoutY="141.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username :">
+      <Text fill="WHITE" fontSmoothingType="LCD" layoutX="97.0" layoutY="141.0" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.6" text="Username :">
          <font>
             <Font size="20.0" />
          </font>
       </Text>
-      <Text fontSmoothingType="LCD" layoutX="97.0" layoutY="251.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password :">
+      <Text fill="WHITE" fontSmoothingType="LCD" layoutX="97.0" layoutY="291.0" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.6" text="Password :">
          <font>
             <Font size="20.0" />
          </font>
       </Text>
-      <Button fx:id="loginBtn" layoutX="268.0" layoutY="304.0" mnemonicParsing="false" onAction="#checkLoginRequest" prefHeight="73.0" prefWidth="165.0" style="-fx-background-color: black;" styleClass="loginButton" text="Login" AnchorPane.bottomAnchor="73.0" AnchorPane.leftAnchor="268.0" AnchorPane.rightAnchor="267.0" AnchorPane.topAnchor="304.0">
-         <font>
-            <Font size="24.0" />
-         </font>
-         <textFill>
-            <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
-               <stops>
-                  <Stop>
-                     <color>
-                        <Color red="1.1102230246251565E-16" green="0.05000000074505806" blue="1.0" />
-                     </color>
-                  </Stop>
-                  <Stop offset="1.0">
-                     <color>
-                        <Color red="0.6370370388031006" green="0.9395061731338501" blue="1.0" />
-                     </color>
-                  </Stop>
-               </stops>
-            </RadialGradient>
-         </textFill>
-      </Button>
       <TextField fx:id="username" layoutX="208.0" layoutY="122.0" prefHeight="26.0" prefWidth="275.0" promptText="Enter Your Username" AnchorPane.leftAnchor="208.0" AnchorPane.rightAnchor="116.80000000000001" />
-      <PasswordField fx:id="password" layoutX="208.0" layoutY="232.0" prefHeight="26.0" prefWidth="275.0" promptText="Enter Your Server Password" AnchorPane.leftAnchor="208.0" AnchorPane.rightAnchor="116.79999999999995" />
-      <Label fx:id="errorLabel" alignment="TOP_CENTER" contentDisplay="TOP" layoutY="51.0" prefHeight="49.0" prefWidth="600.0" text="Label" textAlignment="CENTER" textFill="white" wrapText="true">
+      <PasswordField fx:id="password" layoutX="208.0" layoutY="272.0" prefHeight="26.0" prefWidth="275.0" promptText="Enter Your Server Password" AnchorPane.leftAnchor="208.0" AnchorPane.rightAnchor="116.79999999999995" />
+      <Label fx:id="errorLabel" alignment="TOP_CENTER" contentDisplay="TOP" layoutX="-1.0" layoutY="44.0" prefHeight="49.0" prefWidth="600.0" text="Label" textAlignment="CENTER" textFill="white" wrapText="true">
          <font>
             <Font name="Gill Sans MT" size="14.0" />
          </font>
@@ -65,11 +43,55 @@
             <Image url="@closeButton.png" />
          </image>
       </ImageView>
-      <Text fontSmoothingType="LCD" layoutX="97.0" layoutY="195.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email :">
+      <Text fill="WHITE" fontSmoothingType="LCD" layoutX="97.0" layoutY="195.0" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.6" text="Email :">
          <font>
             <Font size="20.0" />
          </font>
       </Text>
       <TextField fx:id="userEmail" layoutX="208.0" layoutY="174.0" prefHeight="26.0" prefWidth="375.0" promptText="Enter Your Email Adress" />
+      <Button fx:id="verificationButton" layoutX="600.0" layoutY="174.0" mnemonicParsing="false" onAction="#checkLoginRequest" prefHeight="26.0" prefWidth="57.0" styleClass="searchButton" stylesheets="@style3.css" text="Verify">
+         <textFill>
+            <RadialGradient centerX="0.4955947388636383" centerY="0.5" radius="0.5">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color green="1.0" blue="0.15000000596046448" />
+                     </color>
+                  </Stop>
+                  <Stop offset="0.2611036339165545">
+                     <color>
+                        <Color green="1.0" blue="0.15000000596046448" />
+                     </color>
+                  </Stop>
+                  <Stop offset="0.9556609657617435">
+                     <color>
+                        <Color green="1.0" blue="0.9571061730384827" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="1.0" green="1.0" blue="1.0" />
+                     </color>
+                  </Stop>
+               </stops>
+            </RadialGradient>
+         </textFill>
+      </Button>
+      <Text fill="WHITE" fontSmoothingType="LCD" layoutX="97.0" layoutY="247.0" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.6" text="Sign-in Code :">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Text>
+      <TextField fx:id="signInCode" layoutX="208.0" layoutY="226.0" prefHeight="26.0" prefWidth="375.0" promptText="Enter The Code Which Was Emailed To You" />
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="272.0" layoutY="312.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fitHeight="50.0" fitWidth="106.0" layoutX="304.0" layoutY="337.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@sign_in_2.png" />
+         </image>
+      </ImageView>
    </children>
+   <stylesheets>
+      <URL value="@style6.css" />
+      <URL value="@application/round_window.css" />
+   </stylesheets>
 </AnchorPane>

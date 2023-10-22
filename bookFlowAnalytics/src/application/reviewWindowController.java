@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.shape.Rectangle;
 
 public class reviewWindowController {
 
@@ -14,6 +15,8 @@ public class reviewWindowController {
 	private ImageView Coverpage;
 	@FXML
 	public Label titleOfTheBook;
+	@FXML
+	public ImageView bg;
 	@FXML
 	private Label publishdate;
 	@FXML
@@ -36,5 +39,12 @@ public class reviewWindowController {
 		Rating.setText(String.valueOf(rating));
 		this.description.setText(description);
 		Coverpage.setImage(image);
+		
+		double arcWidth = 20;
+		double arcHeight= 20;
+		Rectangle clip = new Rectangle(bg.getFitWidth(),bg.getFitHeight());
+		clip.setArcWidth(arcWidth);
+		clip.setArcHeight(arcHeight);
+		bg.setClip(clip);
 	}
 }

@@ -1,0 +1,12 @@
+.scene{
+	-fx-border-radius: 10 10 10 10; 
+	-fx-background-radius: 10 10 10 10;
+	-fx-background-color: rgba(31, 184, 255,0.5);
+}
+.bookReviewScene{
+	-fx-border-radius: 13 13 13 13; 
+	-fx-background-radius: 13 13 13 13;
+}
+.bookReviewScene .bg{
+	-fx-background-radius: 5;
+}

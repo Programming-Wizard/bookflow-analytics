@@ -102,7 +102,7 @@ public class PerformSearchTask extends Task<Void> {
 			}
 		} catch (java.lang.IllegalArgumentException e) 
 		{
-			System.out.println("insufficient data available to be fetched");
+			System.out.println("insufficient data available to be fetched from the API");
 		}
 		loadingSpinner.setVisible(false);
 		searchButton.setDisable(false);

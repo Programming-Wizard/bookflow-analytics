@@ -1,11 +1,13 @@
 package application;
 
+import java.awt.Color;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.Random;
 import java.util.ResourceBundle;
 
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -48,8 +50,8 @@ public class mainWindowController implements Initializable {
 	private GoogleBooksApiClient apiClient;
 	
 //	keeping them, as this helpful while working on the background of the application
-//	private boolean testingmode = false;
-	 private boolean testingmode = true;
+	private boolean testingmode = false;	
+//	 private boolean testingmode = true;
 
 	private ImageView clickedBook;
 	private String title;
@@ -135,7 +137,11 @@ public class mainWindowController implements Initializable {
 
 			}
 		}
-
+			
+		searchField.setOnAction(event ->{
+			System.out.println("this is going to execute when hit enter ");
+			performSearch();
+		});
 	}
 
 	public void openLogin()
@@ -148,13 +154,13 @@ public class mainWindowController implements Initializable {
 			Scene loginScene = new Scene(loginRoot);
 			
 			loginWindowController loginController = loginWindowload.getController();
-
+			loginScene.setFill(javafx.scene.paint.Color.TRANSPARENT);
 			loginStage.setScene(loginScene);
 			loginStage.initStyle(StageStyle.TRANSPARENT);
 			loginStage.setResizable(false);
 			loginStage.setTitle("User Login");
 			loginStage.setY(180);
-			loginStage.setX(450);
+			loginStage.setX(440);
 			loginStage.show();
 
 //			added a custom close button image therefore adding a event listener to it to close this window
@@ -200,6 +206,7 @@ public class mainWindowController implements Initializable {
 
 			stage.setScene(newScene);
 //			making its title bar transparent 
+			newScene.setFill(javafx.scene.paint.Color.TRANSPARENT);
 			stage.initStyle(StageStyle.TRANSPARENT);
 			stage.setResizable(false);
 			stage.setTitle(title);
@@ -234,7 +241,8 @@ public class mainWindowController implements Initializable {
 //		setting this variable to false as now the user is going to be on the screen with a search feed and if he wishes to go back then the image should be listening to the click
 		Main.isOnHomeScreen = false;
 	}
-
+	
+	
 //	getters for private variables
 	public ProgressIndicator getLoadingSpinner() {
 		return loadingSpinner;
