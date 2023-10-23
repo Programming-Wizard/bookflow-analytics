@@ -1,13 +1,11 @@
 package application;
 
-import java.awt.Color;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.Random;
 import java.util.ResourceBundle;
 
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -50,8 +48,8 @@ public class mainWindowController implements Initializable {
 	private GoogleBooksApiClient apiClient;
 	
 //	keeping them, as this helpful while working on the background of the application
-	private boolean testingmode = false;	
-//	 private boolean testingmode = true;
+//	private boolean testingmode = false;	
+	 private boolean testingmode = true;
 
 	private ImageView clickedBook;
 	private String title;

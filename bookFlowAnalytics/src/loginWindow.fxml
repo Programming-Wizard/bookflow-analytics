@@ -84,7 +84,7 @@
       </Text>
       <TextField fx:id="signInCode" layoutX="208.0" layoutY="226.0" prefHeight="26.0" prefWidth="375.0" promptText="Enter The Code Which Was Emailed To You" />
       <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="272.0" layoutY="312.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fitHeight="50.0" fitWidth="106.0" layoutX="304.0" layoutY="337.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="50.0" fitWidth="106.0" layoutX="304.0" layoutY="337.0" pickOnBounds="true" preserveRatio="true" styleClass="graphbutton">
          <image>
             <Image url="@sign_in_2.png" />
          </image>
@@ -93,5 +93,6 @@
    <stylesheets>
       <URL value="@style6.css" />
       <URL value="@application/round_window.css" />
+      <URL value="@style4.css" />
    </stylesheets>
 </AnchorPane>
