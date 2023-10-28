@@ -24,7 +24,7 @@ import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
 public class mainWindowController implements Initializable {
-	
+
 //	injecting FXML in the controller
 	@FXML
 	private GridPane centerBox;
@@ -42,14 +42,15 @@ public class mainWindowController implements Initializable {
 	private ImageView homeButton;
 	@FXML
 	private ImageView loginButtonM;
-	
 
 	public ImageView coverPage;
 	private GoogleBooksApiClient apiClient;
-	
+	public static Stage loginStage;
+	private Stage stage;
+
 //	keeping them, as this helpful while working on the background of the application
-//	private boolean testingmode = false;	
-	 private boolean testingmode = true;
+	private boolean testingmode = false;
+//	 private boolean testingmode = true;
 
 	private ImageView clickedBook;
 	private String title;
@@ -59,10 +60,12 @@ public class mainWindowController implements Initializable {
 	private double rating;
 	private String description;
 	private String maxResultsPerPage = "20";
+	private Boolean stageIsShowing = false;
 	private String query;
-	String genres[] = { "Mystery", "Thriller", "Science-Fiction", "Fantasy", "Self-Help", "Cooking", "Science",
-			"Technology", "History", "Art", "Poetry", "Comics", "Children", "Mythology", "Western", "Crime", "Medical",
-			"Political", "Spy", "Western", "Cyberpunk", "Post-Apocalyptic", "Steampunk", "Urban-Fantasy" };
+//	genres array to select from
+	String genres[] = { "Thriller", "Science-Fiction", "Fantasy", "Self-Help", "Science", "Technology",
+			"Art", "Poetry", "Children", "Mythology", "Western", "Crime", "Medical", "Western", "Cyberpunk",
+			"Post-Apocalyptic", "Steampunk", "Urban-Fantasy" };
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -70,22 +73,22 @@ public class mainWindowController implements Initializable {
 		Tooltip tooltip = new Tooltip("home");
 		tooltip.setShowDelay(Duration.millis(100));
 		Tooltip.install(homeButton, tooltip);
-		
+
 //		setting the loading spinner invisible originally
 		loadingSpinner.setVisible(false);
-		
+
 //		instantiating the GoogleApiClients class
 		apiClient = new GoogleBooksApiClient();
-		
+
 //		Using Random library picking a random value from the genres and array and then sending it in the URL
 		Random random = new Random();
 		int randomIndex = random.nextInt(genres.length - 1);
 		String selectedGenre = genres[randomIndex];
 		query = selectedGenre;
+		System.out.println(query);
 
 //		this if statement is there just to simplify development of the applications visual else this if is useless here
-		if (testingmode == false) 
-		{
+		if (testingmode == false) {
 //			Getting the fetched data in a list (here Book is a class which is going to contain the books data and using its in built getters we are going to get the data and then display)
 			List<Book> bookdata = apiClient.fetchBooksData(query, maxResultsPerPage);
 
@@ -94,8 +97,7 @@ public class mainWindowController implements Initializable {
 
 //			iterating through each element of the collection 
 			int totalbooksdata = 0;
-			for (Book book : bookdata) 
-			{
+			for (Book book : bookdata) {
 //				creating  a new ImageView and getting the coverURL and putting in the ImageView
 				totalbooksdata++;
 				System.out.println("Total books loaded : " + totalbooksdata);
@@ -118,16 +120,14 @@ public class mainWindowController implements Initializable {
 
 //				incrementing the column so the cover pages are displayed in the next cell every time a new book is being iterated
 				col++;
-				
+
 //				if column is incremented to 4 then it will enter this if block and again restart and making the cover page again start from the 0 index
-				if (col > 3) 
-				{ 
+				if (col > 3) {
 					col = 0;
-					
+
 //					incrementing row's index so the books start from the row and from the first column
 					row++;
-					if (row > 4) 
-					{
+					if (row > 4) {
 //						breaking through the loop once we achieve the 4 x 5 grid
 						break;
 					}
@@ -135,22 +135,20 @@ public class mainWindowController implements Initializable {
 
 			}
 		}
-			
-		searchField.setOnAction(event ->{
+
+		searchField.setOnAction(event -> {
 			System.out.println("this is going to execute when hit enter ");
 			performSearch();
 		});
 	}
 
-	public void openLogin()
-	{
+	public void openLogin() {
 		FXMLLoader loginWindowload = new FXMLLoader(getClass().getResource("/loginWindow.fxml"));
-		try 
-		{
-			Stage loginStage = new Stage();
+		try {
+			loginStage = new Stage();
 			Parent loginRoot = loginWindowload.load();
 			Scene loginScene = new Scene(loginRoot);
-			
+
 			loginWindowController loginController = loginWindowload.getController();
 			loginScene.setFill(javafx.scene.paint.Color.TRANSPARENT);
 			loginStage.setScene(loginScene);
@@ -162,21 +160,18 @@ public class mainWindowController implements Initializable {
 			loginStage.show();
 
 //			added a custom close button image therefore adding a event listener to it to close this window
-			loginController.closeButton.setOnMouseClicked(Event -> 
-			{
+			loginController.closeButton.setOnMouseClicked(Event -> {
 				loginStage.close();
 			});
 
-		} catch (IOException e) 
-		{
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
 	}
-	
+
 //	this is the method which gets executed when clicked on any of the cover pages
-	public void check(Book book, ImageView clickedCoverPage) 
-	{
+	public void check(Book book, ImageView clickedCoverPage) {
 //		to get the details about the book we need to know which book was iterating while passing this function in the event listener and therefore the book parameter was passed
 		this.title = book.getTitle();
 		this.author = book.getAuthor();
@@ -192,17 +187,24 @@ public class mainWindowController implements Initializable {
 
 //		loading a new stage and new scene for every book which is clicked 
 		FXMLLoader reviewWindowLoad = new FXMLLoader(getClass().getResource("/bookReview.fxml"));
-		try 
-		{
-			Stage stage = new Stage();
+		
+		try {
+			
+			if (stageIsShowing) {
+				stage.close();
+			}
+			
+			stage = new Stage();
 			Parent newroot = reviewWindowLoad.load();
 			Scene newScene = new Scene(newroot);
+			
 //			getting the review window's controller
 			reviewWindowController reviewController = reviewWindowLoad.getController();
+			
 //			passing data using a function so every time a book is clicked the function again runs and shows the new and updated information on the screen
 			reviewController.setBookData(title, author, publicationDate, ratingsCount, rating, description, coverImage);
-
 			stage.setScene(newScene);
+			
 //			making its title bar transparent 
 			newScene.setFill(javafx.scene.paint.Color.TRANSPARENT);
 			stage.initStyle(StageStyle.TRANSPARENT);
@@ -213,21 +215,18 @@ public class mainWindowController implements Initializable {
 			stage.show();
 
 //			added a custom close button image therefore adding a event listener to it to close this window
-			reviewController.closeButton.setOnMouseClicked(Event -> 
-			{
+			reviewController.closeButton.setOnMouseClicked(Event -> {
 				stage.close();
 			});
 
-		} catch (IOException e) 
-		{
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
+		stageIsShowing = true;
 	}
 
 //	this function gets executed once the search button is clicked
-	public void performSearch() 
-	{
+	public void performSearch() {
 //		creating a new task for fetching the data in the background and then later updating the changes
 		PerformSearchTask performSearchTask = new PerformSearchTask(apiClient, maxResultsPerPage, centerBox,
 				searchField, loadingSpinner, searchButton, coverPage, this);
@@ -236,11 +235,11 @@ public class mainWindowController implements Initializable {
 		Thread th = new Thread(performSearchTask);
 		th.setDaemon(true);
 		th.start();
+		
 //		setting this variable to false as now the user is going to be on the screen with a search feed and if he wishes to go back then the image should be listening to the click
 		Main.isOnHomeScreen = false;
 	}
-	
-	
+
 //	getters for private variables
 	public ProgressIndicator getLoadingSpinner() {
 		return loadingSpinner;

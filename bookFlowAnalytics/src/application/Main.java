@@ -36,6 +36,7 @@ public class Main extends Application {
 			loadingStage.setResizable(false);
 			loadingStage.getIcons().add(icon);
 			loadingStage.setScene(loadingScene);
+			loadingStage.setAlwaysOnTop(true);
 			loadingStage.show();
 
 //			running a task in the background and i.e. to load the main window
@@ -44,6 +45,7 @@ public class Main extends Application {
 //			setting and showing the main window once the task is done loading the main window
 			LoadMainWindowTask.setOnSucceeded(event1 -> 
 			{
+				LoadScreenController.getMediaplayer().stop();
 				Parent mainRoot = LoadMainWindowTask.getValue();
 				Scene mainScene = new Scene(mainRoot);
 				
@@ -54,7 +56,7 @@ public class Main extends Application {
 				
 //				getting controller from the task file as the the main window is being loaded in the background task
 				mainWindowController MainWindow = LoadMainWindowTask.getController();
-
+				
 				loadingStage.close();
 				
 //				adding event listener to the home button image

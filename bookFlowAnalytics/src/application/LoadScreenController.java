@@ -14,7 +14,7 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 
 public class LoadScreenController implements Initializable {
-	//	injecting FXML in the controller
+	// injecting FXML in the controller
 	@FXML
 	private AnchorPane LoadingScreenPane;
 	@FXML
@@ -25,15 +25,16 @@ public class LoadScreenController implements Initializable {
 	public ProgressBar progressBar = new ProgressBar();
 	private Thread progressThread;
 	private Media media;
-	private MediaPlayer mediaplayer;
+	private static MediaPlayer mediaplayer;
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 //		setting a video background for a better visual
-		media = new Media(getClass().getResource("/animation-window.mp4").toExternalForm());
+		media = new Media(getClass().getResource("/animation-window1.mp4").toExternalForm());
 		mediaplayer = new MediaPlayer(media);
 		background.setMediaPlayer(mediaplayer);
 		mediaplayer.setAutoPlay(true);
+		mediaplayer.setMute(true);
 		mediaplayer.setCycleCount(MediaPlayer.INDEFINITE);
 
 //		creating a progress bar programmatically instead of injecting it from FXML as doing that, a NullPointerException was encountered
@@ -44,7 +45,7 @@ public class LoadScreenController implements Initializable {
 		progressBar.setScaleX(1);
 		progressBar.setScaleY(1);
 		progressBar.setScaleZ(1);
-		
+
 //		adding the created progress bar to the scene
 		LoadingScreenPane.getChildren().add(progressBar);
 
@@ -66,5 +67,9 @@ public class LoadScreenController implements Initializable {
 
 	private void updateProgressBar(double value) {
 		Platform.runLater(() -> progressBar.setProgress(value));
+	}
+
+	public static MediaPlayer getMediaplayer() {
+		return mediaplayer;
 	}
 }

@@ -14,5 +14,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/java_fx"/>
 	<classpathentry kind="lib" path="D:/eclipse setup/gson-2.10.1.jar"/>
 	<classpathentry kind="lib" path="D:/eclipse setup/jython/jython.jar"/>
+	<classpathentry kind="lib" path="D:/eclipse setup/mysql-connector-java-8.0.28.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

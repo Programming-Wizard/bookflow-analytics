@@ -97,7 +97,7 @@
             </ImageView>
             <ImageView fx:id="loginButtonM" fitHeight="42.0" fitWidth="99.0" layoutX="1395.0" layoutY="70.0" onMouseClicked="#openLogin" pickOnBounds="true" preserveRatio="true" style="-fx-scale-z: 20;" styleClass="loginButtonM">
                <image>
-                  <Image url="@Screenshot%202023-10-19%20020318.png" />
+                  <Image url="@sign_up_button.png" />
                </image>
                <cursor>
                   <Cursor fx:constant="HAND" />

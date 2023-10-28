@@ -16,7 +16,7 @@
          </image>
       </ImageView>
       <ImageView fx:id="Coverpage" fitHeight="281.0" fitWidth="198.0" layoutX="558.0" layoutY="131.0" pickOnBounds="true" preserveRatio="true" />
-      <Label fx:id="titleOfTheBook" alignment="CENTER" contentDisplay="CENTER" layoutX="8.0" layoutY="64.0" prefHeight="52.0" prefWidth="486.0" text="Title" wrapText="true">
+      <Label fx:id="titleOfTheBook" alignment="CENTER" contentDisplay="CENTER" layoutX="8.0" layoutY="64.0" prefHeight="52.0" prefWidth="486.0" text="title" textAlignment="CENTER" wrapText="true">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
