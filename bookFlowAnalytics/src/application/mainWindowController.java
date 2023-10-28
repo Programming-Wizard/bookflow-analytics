@@ -49,8 +49,8 @@ public class mainWindowController implements Initializable {
 	private Stage stage;
 
 //	keeping them, as this helpful while working on the background of the application
-	private boolean testingmode = false;
-//	 private boolean testingmode = true;
+//	private boolean testingmode = false;
+	 private boolean testingmode = true;
 
 	private ImageView clickedBook;
 	private String title;
@@ -283,5 +283,8 @@ public class mainWindowController implements Initializable {
 
 	public String getDescription() {
 		return description;
+	}
+	public ImageView getLoginButtonM() {
+		return loginButtonM;
 	}
 }
