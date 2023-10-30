@@ -108,6 +108,14 @@
                   <Image url="@logo.png" />
                </image>
             </ImageView>
+            <ImageView fx:id="userAvatar" fitHeight="43.0" fitWidth="51.0" layoutX="1495.0" layoutY="70.0" pickOnBounds="true" preserveRatio="true" style="-fx-scale-z: 20;" styleClass="loginButtonM">
+               <image>
+                  <Image url="@user.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
          </children>
       </AnchorPane>
    </top>

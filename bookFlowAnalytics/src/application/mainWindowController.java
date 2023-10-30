@@ -42,6 +42,8 @@ public class mainWindowController implements Initializable {
 	private ImageView homeButton;
 	@FXML
 	private ImageView loginButtonM;
+	@FXML
+	public static ImageView userAvatar;
 
 	public ImageView coverPage;
 	private GoogleBooksApiClient apiClient;
@@ -63,12 +65,13 @@ public class mainWindowController implements Initializable {
 	private Boolean stageIsShowing = false;
 	private String query;
 //	genres array to select from
-	String genres[] = { "Thriller", "Science-Fiction", "Fantasy", "Self-Help", "Science", "Technology",
+	String genres[] = { "Thriller", "Science-Fiction", "Self-Help", "Science", "Technology",
 			"Art", "Poetry", "Children", "Mythology", "Western", "Crime", "Medical", "Western", "Cyberpunk",
 			"Post-Apocalyptic", "Steampunk", "Urban-Fantasy" };
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		userAvatar.setVisible(false);
 //		tooltip for the home button in header
 		Tooltip tooltip = new Tooltip("home");
 		tooltip.setShowDelay(Duration.millis(100));
@@ -84,7 +87,8 @@ public class mainWindowController implements Initializable {
 		Random random = new Random();
 		int randomIndex = random.nextInt(genres.length - 1);
 		String selectedGenre = genres[randomIndex];
-		query = selectedGenre;
+//		query = selectedGenre;
+		query =selectedGenre;
 		System.out.println(query);
 
 //		this if statement is there just to simplify development of the applications visual else this if is useless here
