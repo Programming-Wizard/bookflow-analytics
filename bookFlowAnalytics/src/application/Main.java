@@ -86,6 +86,7 @@ public class Main extends Application {
 					}
 				});
 
+
 //				event listener for the button which on clicked shows the user a graph of books with new genre everytime a click is listened
 				MainWindow.graphSceneButton.setOnMouseClicked(Event2 -> 
 				{
@@ -133,7 +134,10 @@ public class Main extends Application {
 			e.printStackTrace();
 		}
 	}
-
+	public void showAvatar()
+	{
+		
+	}
 	public static void main(String[] args) {
 		launch(args);
 	}

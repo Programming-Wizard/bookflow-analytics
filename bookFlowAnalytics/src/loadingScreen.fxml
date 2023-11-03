@@ -1,12 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.effect.Reflection?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.media.MediaView?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 <AnchorPane fx:id="LoadingScreenPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.LoadScreenController">
    <children>
+      <ImageView fitHeight="400.0" fitWidth="600.0" pickOnBounds="true">
+         <image>
+            <Image url="@backup_image.png" />
+         </image>
+      </ImageView>
       <MediaView fx:id="background" fitHeight="600.0" fitWidth="710.0" layoutX="-55.0" layoutY="4.0" />
-      <Text fontSmoothingType="LCD" layoutX="38.0" layoutY="317.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fetching Data From The API:" wrappingWidth="159.7366943359375" />
+      <Text fontSmoothingType="LCD" layoutX="38.0" layoutY="302.0" stroke="BLACK" text="Fetching Data From The API:" wrappingWidth="178.13665771484375">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <effect>
+            <Reflection bottomOpacity="0.18" fraction="1.0" />
+         </effect></Text>
    </children>
 </AnchorPane>

@@ -6,12 +6,12 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ResourceBundle;
 
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -21,6 +21,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
@@ -59,14 +60,15 @@ public class loginWindowController implements Initializable {
 	private Text usernameLabel;
 	@FXML
 	private AnchorPane signUpWindowCanvas;
-
 	private Timeline timeline;
-
 	public static String enteredText;
 	pythonProcessTask task1 = new pythonProcessTask();
 	private String usernameData;
 	private String passwordData;
-
+	public static String UsernameFieldData;
+	public static int userId;
+	
+	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		loadingComponent.setVisible(false);
@@ -80,13 +82,15 @@ public class loginWindowController implements Initializable {
 		task1.setOnFailed(event -> {
 			System.out.println("task was executed but had an error");
 		});
+		password.setOnAction(event->loginInstruction());
 	}
-
+	
 	public void checkLoginRequest() {
 		if (userEmail.getText().strip().isEmpty()) {
 			displayingError("Enter your email to verify");
 			return;
 		}
+		userEmail.setEditable(false);
 		signInCode.setDisable(false);
 		loadingComponent.setVisible(true);
 		SignBtn.setDisable(false);
@@ -103,7 +107,7 @@ public class loginWindowController implements Initializable {
 				if (!th.isAlive()) {
 					System.out.println("the thread has died");
 					loadingComponent.setVisible(false);
-					verificationButton.setVisible(true);
+					verificationButton.setVisible(false);
 					timeline.stop();
 				}
 			}
@@ -145,6 +149,7 @@ public class loginWindowController implements Initializable {
 	}
 
 	public void InsertUser() {
+
 		String usernameContent = username.getText().strip();
 		String emailContent = userEmail.getText().strip();
 		errorImage.setVisible(false);
@@ -166,11 +171,15 @@ public class loginWindowController implements Initializable {
 			checkSet.next();
 
 			if (checkSet.getInt(1) > 0) {
-				displayingError("User with this Username or Email account already exists");
+				displayingError("User exists");
+				userEmail.setEditable(true);
+				signInCode.clear();
+				
 				System.out.println("user exists");
+				
 				return;
 			} else {
-//				the user was not found and can be added in the database
+//				the user was not found and can be added in the database and further can be processed from here
 				System.out.println("no user found with this credentials can execute further");
 			}
 
@@ -184,7 +193,9 @@ public class loginWindowController implements Initializable {
 
 			if (checkStatusOfTheQuery > 0) {
 				System.out.println("the user has been added to the database ");
-				
+				displayingError("User Account has been created");
+				UsernameFieldData = username.getText();
+				getUserId();
 				mainWindowController.loginStage.close();
 			} else {
 				displayingError("Some unknown error occured try again");
@@ -198,6 +209,62 @@ public class loginWindowController implements Initializable {
 		}
 	}
 
+	public void loginInstruction() {
+		String usernameContent = username.getText().strip();
+		String passwordContent = password.getText().strip();
+		if (usernameContent.isEmpty()) {
+			displayingError("Enter Username or Email");
+		} else if (passwordContent.isEmpty()) {
+			displayingError("Enter Password");
+		} else {
+			usernameData = "root";
+			passwordData = "zephrus_02";
+
+			String url = "jdbc:mysql://localhost:3306/LibraryUserData";
+			try {
+				Class.forName("com.mysql.cj.jdbc.Driver");
+				Connection con = DriverManager.getConnection(url, usernameData, passwordData);
+				String SqlQueryFindUser = "SELECT password FROM UserDetails WHERE username = ?";
+				PreparedStatement preparedStatement = con.prepareStatement(SqlQueryFindUser);
+				preparedStatement.setString(1, usernameContent);
+				ResultSet resultSet = preparedStatement.executeQuery();
+				if (resultSet.next()) {
+					String storedPassword = resultSet.getString("password");
+//					checking if the user is found and if can be logged in 
+					if (passwordContent.equals(storedPassword)) {
+						System.out.println("the user has account and can be logged in");
+						displayingError("User Logged In");
+						UsernameFieldData = username.getText();
+						getUserId();
+						mainWindowController.loginStage.close();
+					} else {
+						displayingError("incorrect password");
+					}
+				} else {
+					String NewSqlQueryFindUser = "SELECT password FROM UserDetails WHERE email = ?";
+					PreparedStatement preparedStatement1 = con.prepareStatement(NewSqlQueryFindUser);
+					preparedStatement1.setString(1, usernameContent);
+					ResultSet resultSet1 = preparedStatement1.executeQuery();
+					if (resultSet1.next()) {
+						String storedPassword = resultSet1.getString("password");
+						if (passwordContent.equals(storedPassword)) {
+							System.out.println("authenticated");
+							mainWindowController.loginStage.close();
+						} else {
+							displayingError("incorrect password");
+						}
+					} else {
+						displayingError("user not found");
+					}
+				}
+				con.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+				displayingError("This is SQL error");
+			}
+		}
+
+	}
 	private void changeBackToSignIn() {
 		signUpWindowCanvas.setStyle("-fx-background-color: rgba(31, 184, 255,0.5);");
 		signInCode.setVisible(true);
@@ -224,7 +291,8 @@ public class loginWindowController implements Initializable {
 
 		SignBtn.setDisable(true);
 		SignBtn.setOnMousePressed(event -> signInButtonTask());
-
+		Image image = new Image("/sign_in_2.png");
+		SignBtn.setImage(image);
 		Login.setOnMouseClicked(event -> LoginUser());
 		Login.setText("Already Have An Account ? Log in.");
 	}
@@ -250,72 +318,19 @@ public class loginWindowController implements Initializable {
 		password.setTranslateY(passwordLabel.getTranslateY());
 		password.setPromptText("Enter Your Password");
 
-		username.setPromptText("Enter Username or Email");
-		usernameLabel.setText("Email/Username :");
+		username.setPromptText("Enter Username");
+		usernameLabel.setText("Username :");
 		usernameLabel.setTranslateX(usernameLabel.getTranslateX() - 50);
 		Login.setOnMouseClicked(event -> changeBackToSignIn());
 		Login.setText("Don't Have An Account ? Sign in.");
+		Image image = new Image("/login_Button.png");
+		SignBtn.setImage(image);
 
 		SignBtn.setDisable(false);
 		SignBtn.setOnMousePressed(event -> {
 			loginInstruction();
 		});
 	}
-
-	public void loginInstruction() {
-		String usernameContent = username.getText().strip();
-		String passwordContent = password.getText().strip();
-		if (usernameContent.isEmpty()) {
-			displayingError("Enter Username or Email");
-		} else if (passwordContent.isEmpty()) {
-			displayingError("Enter Password");
-		} else {
-			usernameData = "root";
-			passwordData = "zephrus_02";
-
-			String url = "jdbc:mysql://localhost:3306/LibraryUserData";
-			try {
-				Class.forName("com.mysql.cj.jdbc.Driver");
-				Connection con = DriverManager.getConnection(url, usernameData, passwordData);
-				String SqlQueryFindUser = "SELECT password FROM UserDetails WHERE username = ?";
-				PreparedStatement preparedStatement = con.prepareStatement(SqlQueryFindUser);
-				preparedStatement.setString(1, usernameContent);
-				ResultSet resultSet = preparedStatement.executeQuery();
-				if (resultSet.next()) {
-					String storedPassword = resultSet.getString("password");
-					if (passwordContent.equals(storedPassword)) {
-						System.out.println("the user has account and can be logged in");
-						
-
-					} else {
-						displayingError("incorrect password");
-					}
-				} else {
-					String NewSqlQueryFindUser = "SELECT password FROM UserDetails WHERE email = ?";
-					PreparedStatement preparedStatement1 = con.prepareStatement(NewSqlQueryFindUser);
-					preparedStatement1.setString(1, usernameContent);
-					ResultSet resultSet1 = preparedStatement1.executeQuery();
-					if (resultSet1.next()) {
-						String storedPassword = resultSet1.getString("password");
-						if (passwordContent.equals(storedPassword)) {
-							System.out.println("authenticated");
-							mainWindowController.loginStage.close();
-						} else {
-							displayingError("incorrect password");
-						}
-					} else {
-						displayingError("user not found");
-					}
-				}
-				con.close();
-			} catch (Exception e) {
-				e.printStackTrace();
-				displayingError("This is SQL error try Starting the SQL service if not running");
-			}
-		}
-
-	}
-
 	public void displayingError(String Message) {
 		errorLabel.setVisible(true);
 		errorImage.setVisible(true);
@@ -348,4 +363,39 @@ public class loginWindowController implements Initializable {
 		showDurationTimeline2.play();
 
 	}
+	
+	public static 	void getUserId() {
+
+		        // Database URL, username, and password
+		        String url = "jdbc:mysql://localhost:3306/libraryUserData";
+		        String username = "root";
+		        String password = "zephrus_02";
+
+		        // Create a connection to the database
+		        try {
+		            Connection connection = DriverManager.getConnection(url, username, password);
+
+		            // Execute a query
+		            String query = "SELECT id FROM userdetails WHERE username = ?";
+		            try (PreparedStatement statement = connection.prepareStatement(query)) {
+		                statement.setString(1, UsernameFieldData);
+
+		                // Execute the query
+		                ResultSet resultSet = statement.executeQuery();
+
+		                // Check if a user with the provided credentials was found
+		                if (resultSet.next()) {
+		                    userId = resultSet.getInt("id");
+		                    System.out.println(userId);
+		                    
+		                    resultSet.close();
+		                    statement.close();
+		                    connection.close();
+		                }
+		            }
+		        } catch (SQLException e) {
+		            e.printStackTrace();
+		        }
+
+		    }
 }

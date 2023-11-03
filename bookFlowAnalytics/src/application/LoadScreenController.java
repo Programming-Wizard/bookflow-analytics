@@ -51,6 +51,12 @@ public class LoadScreenController implements Initializable {
 
 //		creating a thread to show progress in the thread
 		progressThread = new Thread(() -> {
+			try {
+				Thread.sleep(300);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			for (double progress = 0; progress <= 1.0; progress += 0.1) {
 //				calling the method and passing the updated the value to the method every time the loop is executed
 				updateProgressBar(progress);

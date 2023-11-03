@@ -30,10 +30,10 @@ public class bookFlowAnalyticsController implements Initializable {
 
 	private GoogleBooksApiClient apiClient;
 
-	private String maxResultsPerPage = "30";
+	private String maxResultsPerPage = "40";
 	String genres[] = { "Mystery", "Thriller", "Science-Fiction", "Fantasy", "Self-Help", "Cooking", "Science",
-			"Technology", "History", "Art", "Poetry", "Comics", "Children", "Mythology", "Western", "Crime", "Medical",
-			"Political", "Spy", "Western", "Cyberpunk", "Post-Apocalyptic", "Steampunk", "Urban-Fantasy" };
+			 "History", "Art", "Poetry", "Comics", "Children", "Mythology", "Crime", "Medical",
+			"Political", "Cyberpunk", "Post-Apocalyptic", "Steampunk", "Urban-Fantasy" };
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -45,6 +45,7 @@ public class bookFlowAnalyticsController implements Initializable {
 		String selectedGenre = genres[randomIndex];
 		String query = selectedGenre;
 
+		System.out.println(query);
 		// instantiating the GoogleBooksApiClient class
 		apiClient = new GoogleBooksApiClient();
 
@@ -88,7 +89,8 @@ public class bookFlowAnalyticsController implements Initializable {
 		}
 
 //		setting the height chart the graph
-		readsGraph.setPrefHeight(900);
+		readsGraph.setPrefHeight(500);
+		readsGraph.setPrefWidth(100);
 
 //		adding the chart to the BarChart
 		readsGraph.getData().add(series);

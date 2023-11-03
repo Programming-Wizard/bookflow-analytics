@@ -54,6 +54,17 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </ImageView>
+      <ImageView fx:id="favButton" fitHeight="67.0" fitWidth="48.0" layoutX="27.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@fav1.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="errorLabel" alignment="CENTER" layoutX="123.0" layoutY="27.0" prefHeight="48.0" prefWidth="567.0" style="-fx-background-color: white;" text="Label" textAlignment="CENTER" />
+      <ImageView fx:id="errorImage" fitHeight="40.0" fitWidth="48.0" layoutX="646.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@error.png" />
+         </image>
+      </ImageView>
    </children>
    <stylesheets>
       <URL value="@style5.css" />
