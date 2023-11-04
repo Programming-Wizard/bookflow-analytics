@@ -4,6 +4,7 @@ import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ResourceBundle;
 
 import javafx.animation.FadeTransition;
@@ -12,6 +13,7 @@ import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Rectangle;
@@ -74,13 +76,18 @@ public class reviewWindowController implements Initializable{
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		loginWindowController.getUserId();
 		errorImage.setVisible(false);
 		errorLabel.setVisible(false);
+		Tooltip tooltip = new Tooltip("Add To Favourites");
+		tooltip.setShowDelay(Duration.millis(10));
+		Tooltip.install(favButton, tooltip);
 		favButton.setOnMouseClicked(event->{
 			loginWindowController.getUserId();
 			Image favButtonChange = new Image("/fav2.png");
 			System.out.println(title);
 			System.out.println(image);
+			
 			String usernameData = "root";
 			String passwordData = "zephrus_02";
 
@@ -88,6 +95,17 @@ public class reviewWindowController implements Initializable{
 			try {
 				Class.forName("com.mysql.cj.jdbc.Driver");
 				Connection con = DriverManager.getConnection(url, usernameData, passwordData);
+				String checkQuery = "SELECT * FROM favorite_books WHERE id = ? AND book_title = ?";
+		        PreparedStatement checkStatement = con.prepareStatement(checkQuery);
+		        checkStatement.setInt(1, loginWindowController.userId);
+		        checkStatement.setString(2, title);
+		        
+		        ResultSet checkResult = checkStatement.executeQuery();
+		        if(checkResult.next()) {
+		        	System.out.println("this is already in your list");
+		        	return;
+		        }
+				
 				String insertingDataInTheTable= "INSERT INTO favorite_books (id, book_title, book_author) VALUES (? , ? , ?)";
 				
 				PreparedStatement preparedStatement = con.prepareStatement(insertingDataInTheTable);
@@ -106,7 +124,7 @@ public class reviewWindowController implements Initializable{
 				
 			}catch (Exception e) {
 				// TODO: handle exception
-//				e.printStackTrace();
+				e.printStackTrace();
 				displayingError("please login or create account to mark this book in your favourites");
 				System.out.println("please login or create account to mark this book in your favourites");
 			}

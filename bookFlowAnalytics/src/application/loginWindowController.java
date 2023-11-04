@@ -21,6 +21,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -71,6 +72,9 @@ public class loginWindowController implements Initializable {
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		Tooltip tooltip = new Tooltip("Before Clicking This Make Sure To Enter Correct And Valid Or An Available Email");
+		tooltip.setShowDelay(Duration.millis(100));
+		Tooltip.install(verificationButton, tooltip);
 		loadingComponent.setVisible(false);
 		SignBtn.setDisable(true);
 		errorImage.setVisible(false);

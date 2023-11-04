@@ -22,13 +22,19 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </ImageView>
-      <BarChart fx:id="readsGraph" legendVisible="false" prefHeight="524.0" prefWidth="890.0" style="-fx-background-color: white;" stylesheets="@style2.css" title="Most Reads" verticalGridLinesVisible="false">
+      <BarChart fx:id="readsGraph" legendVisible="false" prefHeight="524.0" prefWidth="890.0" style="-fx-background-color: black;" stylesheets="@style2.css" title="Most Reads" translateY="79.0" verticalGridLinesVisible="false">
         <xAxis>
           <CategoryAxis label="Book Name" side="BOTTOM" />
         </xAxis>
         <yAxis>
           <NumberAxis label="Rating" side="LEFT" />
         </yAxis>
+         <VBox.margin>
+            <Insets left="150.0" right="150.0" />
+         </VBox.margin>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
       </BarChart>
    </children>
 </VBox>

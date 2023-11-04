@@ -1,12 +1,14 @@
 /* Chart Background and Borders */
 .chart {
-    -fx-background-color: #020024;
+    -fx-background-color: powderblue;
     -fx-padding: 40px;
+    	-fx-wrap-text:true;
    
 }
 .chart-title{
 	-fx-text-fill:white;
 	-fx-font-size: 2.5em;
+	
 }
 
 /* Series Styling */
@@ -14,7 +16,7 @@
     -fx-bar-fill: rgb(0,224,250,0.3); /* Change bar color for series 0 */
 }
 .series0:hover{
-	-fx-bar-fill: rgb(0,224,250,1);
+	-fx-bar-fill: rgb(132, 0, 194,0.4);
 }
 
 
