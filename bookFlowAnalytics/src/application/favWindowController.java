@@ -8,6 +8,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
+import org.python.core.PyByteArray.bytearray_partition_exposer;
+import org.python.icu.text.CaseMap.Title;
+
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -40,12 +43,17 @@ public class favWindowController implements Initializable {
                 String bookTitle = resultSet.getString("book_title");
                 String bookAuthor = resultSet.getString("book_author");
 
-                Label titleLabel = new Label("Book Title : " + bookTitle + "\n");
-                Label authorLabel = new Label("Author :  " + bookAuthor + "\n\n");
+                Label titleLabel = new Label();
+                Label authorLabel = new Label();
+                titleLabel.setText("Book Title : " + bookTitle + "\n");
+                authorLabel.setText("Author Name : " + bookAuthor + "\n\n");
+                
+                titleLabel.setWrapText(true);
+                titleLabel.setStyle("-fx-background-color: #f3f3f3; -fx-background-radius: 5px; -fx-padding: 10px; -fx-border-color: #ddd; -fx-border-width: 1px; -fx-border-radius: 5px; -fx-wrap-text: true;");
                 titleLabel.setFont(customFont);
 
                 // Add labels to the container (VBox)
-                container.getChildren().addAll(titleLabel, authorLabel);
+                container.getChildren().addAll(authorLabel, titleLabel);
             }
             
         } catch (SQLException e) {

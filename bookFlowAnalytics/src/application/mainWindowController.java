@@ -82,8 +82,8 @@ public class mainWindowController implements Initializable {
 	loginWindowController loginMethods = new loginWindowController();
 
 //	keeping them, as this helpful while working on the background of the application
-//	private boolean testingmode = false;
-	private boolean testingmode = true;
+	private boolean testingmode = false;
+//	private boolean testingmode = true;
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {

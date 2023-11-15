@@ -324,7 +324,6 @@ public class loginWindowController implements Initializable {
 
 		username.setPromptText("Enter Username");
 		usernameLabel.setText("Username :");
-		usernameLabel.setTranslateX(usernameLabel.getTranslateX() - 50);
 		Login.setOnMouseClicked(event -> changeBackToSignIn());
 		Login.setText("Don't Have An Account ? Sign in.");
 		Image image = new Image("/login_Button.png");
